@@ -20,6 +20,10 @@ object Validator {
             val matchResult = menuRegex.find(input)
             if (matchResult != null) quantity += matchResult.groupValues[2].toInt()
         }
-        require(quantity <= MAX_QUANTITY){"[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요."}
+        require(quantity <= MAX_QUANTITY) { "[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요." }
+    }
+
+    fun isMenuDuplicate(inputList: List<String>) {
+        require(inputList.size == inputList.toSet().size) { "[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요." }
     }
 }

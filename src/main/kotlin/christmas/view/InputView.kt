@@ -2,6 +2,7 @@ package christmas.view
 
 import camp.nextstep.edu.missionutils.Console
 import christmas.util.Validator.isDateInRange
+import christmas.util.Validator.isMenuDuplicate
 import christmas.util.Validator.isMenuMatchRegex
 import christmas.util.Validator.isMenuQuantityInRange
 
@@ -50,6 +51,7 @@ class InputView {
             val userInput = getOrderedMenuList()
             userInput.forEach { isMenuMatchRegex(it) }
             isMenuQuantityInRange(userInput)
+            isMenuDuplicate(userInput)
             userInput
         } catch (e: IllegalArgumentException) {
             println(e.message)
