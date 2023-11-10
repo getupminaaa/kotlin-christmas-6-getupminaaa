@@ -1,6 +1,5 @@
 package christmas.model
 
-import christmas.util.Validator.isDateInRange
 
 class DateManager(private val inputDate: String) {
     val visitDate: Int
@@ -8,11 +7,10 @@ class DateManager(private val inputDate: String) {
     private var _visitDate = 0
 
     init {
-        getValidVisitDate()
+        setVisitDate()
     }
 
-    private fun getValidVisitDate() {
-        isDateInRange(inputDate)
-        _visitDate = inputDate.toInt()
+    private fun setVisitDate() {
+        if (inputDate.isNotEmpty()) _visitDate = inputDate.toInt()
     }
 }
