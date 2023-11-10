@@ -5,15 +5,11 @@ import christmas.view.InputView
 import christmas.view.OutputView
 
 class EventPlannerController {
-    private val inputView = InputView()
     private val outputView = OutputView()
+    private val inputView = InputView()
 
     fun run(){
-        val temp = 3
-        outputView.printStartMsg()
         val dateManager = DateManager(inputView.inputDate)
-        dateManager.getValidDate()
-        inputView.getOrderedMenu()
-        outputView.printEventMsg(temp)
+        outputView.printEventMsg(dateManager.visitDate)
     }
 }
