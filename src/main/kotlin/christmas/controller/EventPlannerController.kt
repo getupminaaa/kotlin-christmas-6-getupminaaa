@@ -5,6 +5,7 @@ import christmas.model.Menu
 import christmas.model.MenuManager
 import christmas.util.Validator
 import christmas.util.Validator.isDateInRange
+import christmas.util.Validator.isOrderContainsFood
 import christmas.util.Validator.isOrderInMenu
 import christmas.view.InputView
 import christmas.view.OutputView
@@ -22,7 +23,7 @@ class EventPlannerController {
         validOrder = getValidOrder()
     }
 
-    fun run(){
+    fun run() {
         val dateManager = DateManager(validDate)
         outputView.printEventMsg(dateManager.visitDate)
         val menuManager = MenuManager(validOrder)
@@ -37,10 +38,12 @@ class EventPlannerController {
             getValidDate()
         }
     }
+
     private fun getValidOrder(): List<Map<String, Int>> {
         return try {
             val userInput = inputView.getOrderedMenuList()
             menuCheck(userInput)
+            onlyBeverage(userInput)
             userInput
         } catch (e: IllegalArgumentException) {
             println(e.message)
@@ -50,5 +53,10 @@ class EventPlannerController {
 
     private fun menuCheck(userInput: List<Map<String, Int>>) {
         userInput.flatMap { it.keys }.forEach { isOrderInMenu(menu.isItemInMenu(it)) }
+    }
+
+    private fun onlyBeverage(userInput: List<Map<String, Int>>) {
+        val temp = userInput.flatMap { it.keys }
+        isOrderContainsFood(menu.areItemsNotOnlyBeverage(temp))
     }
 }

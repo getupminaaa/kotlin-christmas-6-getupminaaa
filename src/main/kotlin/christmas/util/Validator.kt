@@ -35,4 +35,8 @@ object Validator {
     fun isOrderInMenu(isInMenu:Boolean){
         require(isInMenu){"[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요."}
     }
+    
+    fun isOrderContainsFood(notOnlyBeverage:Boolean){
+        require(notOnlyBeverage){"[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요."}
+    }
 }

@@ -30,6 +30,10 @@ class Menu {
         )
     )
     fun isItemInMenu(itemName: String): Boolean {
-        return menuListMap.values.flatten().any { it.name.contains(itemName) }
+        return menuListMap.values.flatten().any { it.name.equals(itemName) }
+    }
+    fun areItemsNotOnlyBeverage(itemNames:List<String>):Boolean{
+        val beverageMenu =  menuListMap[MenuCategory.음료]!!.map { it.name }
+        return itemNames.subtract(beverageMenu.toSet()).isNotEmpty() //음료만으로 구성되어있지 않음 => true
     }
 }
