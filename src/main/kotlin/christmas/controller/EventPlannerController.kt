@@ -27,7 +27,7 @@ class EventPlannerController {
         val menuManager = MenuManager(validOrder)
         outputView.printMenu(validOrder)
 
-        menuManager.calculateTotalPrice(menu.getMenuItemPrice(menuManager.orderedMenuNameList))
+        menuManager.calculateTotalPrice(menu.getMenuItemPrice(menuManager.orderMenuNameList))
         outputView.printTotalPrice(menuManager.totalPrice)
 
         val dateManager = DateManager(validDate)

@@ -6,30 +6,30 @@ class MenuManager(private val validOrder: List<Map<String, Int>>) {
         get() = _totalPrice
     private var _totalPrice = 0
 
-    val orderedMenuNameList:List<String>
-        get() = _orderedMenuNameList
-    private var _orderedMenuNameList = listOf<String>()
+    val orderMenuNameList:List<String>
+        get() = _orderMenuNameList
+    private var _orderMenuNameList = listOf<String>()
 
-    val orderedMenuQuantityList:List<Int>
-        get() = _orderedMenuQuantityList
-    private var _orderedMenuQuantityList = listOf<Int>()
+    val orderMenuQuantityList:List<Int>
+        get() = _orderMenuQuantityList
+    private var _orderMenuQuantityList = listOf<Int>()
 
     init {
-        setOrderedMenuNameList()
+        setOrderMenuNameList()
         setOrderMenuQuantityList()
     }
 
-    private fun setOrderedMenuNameList(){
-        _orderedMenuNameList = validOrder.flatMap { it.keys }
+    private fun setOrderMenuNameList(){
+        _orderMenuNameList = validOrder.flatMap { it.keys }
     }
 
     private fun setOrderMenuQuantityList(){
-        _orderedMenuQuantityList = validOrder.flatMap { it.values }
+        _orderMenuQuantityList = validOrder.flatMap { it.values }
     }
 
     fun calculateTotalPrice(priceList: List<Int>) {
         var total = 0
-        _orderedMenuQuantityList.forEachIndexed { index, it ->
+        _orderMenuQuantityList.forEachIndexed { index, it ->
             total += priceList[index] * it
         }
         _totalPrice = total
