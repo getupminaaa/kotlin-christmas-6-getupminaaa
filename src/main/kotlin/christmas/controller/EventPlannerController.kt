@@ -27,6 +27,7 @@ class EventPlannerController {
         val dateManager = DateManager(validDate)
         outputView.printEventMsg(dateManager.visitDate)
         val menuManager = MenuManager(validOrder)
+        outputView.printMenu(validOrder)
     }
 
     private fun getValidDate(): Int {
@@ -38,7 +39,6 @@ class EventPlannerController {
             getValidDate()
         }
     }
-
     private fun getValidOrder(): List<Map<String, Int>> {
         return try {
             val userInput = inputView.getOrderedMenuList()
@@ -54,7 +54,6 @@ class EventPlannerController {
     private fun menuCheck(userInput: List<Map<String, Int>>) {
         userInput.flatMap { it.keys }.forEach { isOrderInMenu(menu.isItemInMenu(it)) }
     }
-
     private fun onlyBeverage(userInput: List<Map<String, Int>>) {
         val temp = userInput.flatMap { it.keys }
         isOrderContainsFood(menu.areItemsNotOnlyBeverage(temp))

@@ -11,4 +11,8 @@ class OutputView {
     fun printEventMsg(date:Int){
         println("12월 %d일에 우테코 식당에서 받을 이벤트 혜택 미리 보기!".format(date))
     }
+    fun printMenu(menuList:List<Map<String,Int>>){
+        println("\n<주문메뉴>")
+        menuList.flatMap { it.entries }.forEach { (key,value)-> println("$key ${value}개") }
+    }
 }

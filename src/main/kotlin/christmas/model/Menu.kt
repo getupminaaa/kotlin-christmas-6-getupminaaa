@@ -7,7 +7,7 @@ class Menu {
         디저트,
         음료
     }
-    val menuListMap = mapOf(
+    private val menuListMap = mapOf(
         MenuCategory.애피타이저 to listOf(
             MenuItem("양송이수프", 6000),
             MenuItem("타파스", 5500),
