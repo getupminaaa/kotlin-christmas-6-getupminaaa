@@ -27,6 +27,7 @@ class EventPlannerController {
         val menuManager = MenuManager(validOrder)
         outputView.printMenu(menuManager.orderedMenu)
         menuManager.calculateTotalPrice(menu.getMenuItemPrice(menuManager.orderedMenuNameList))
+        outputView.printTotalPrice(menuManager.totalPrice)
     }
 
     private fun getValidDate(): Int {

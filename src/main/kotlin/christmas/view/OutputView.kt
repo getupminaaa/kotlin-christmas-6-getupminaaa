@@ -5,6 +5,10 @@ class OutputView {
         printStartMsg()
     }
 
+    private fun formatCurrency(price:Int):String{
+        return String.format("%,d원", price)
+    }
+
     private fun printStartMsg(){
         println("안녕하세요! 우테코 식당 12월 이벤트 플래너입니다.")
     }
@@ -14,5 +18,9 @@ class OutputView {
     fun printMenu(menuList:List<Map<String,Int>>){
         println("\n<주문메뉴>")
         menuList.flatMap { it.entries }.forEach { (key,value)-> println("$key ${value}개") }
+    }
+    fun printTotalPrice(totalPrice:Int){
+        println("\n<할인 전 총주문 금액>")
+        println(formatCurrency(totalPrice))
     }
 }
