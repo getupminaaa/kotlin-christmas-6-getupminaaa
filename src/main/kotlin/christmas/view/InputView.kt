@@ -21,22 +21,17 @@ class InputView {
     }
 
 
-
-    private fun getOrderedMenuList(): List<String> {
+    fun getOrderedMenuList(): List<Map<String, Int>> {
         println("주문하실 메뉴를 메뉴와 개수를 알려 주세요. (e.g. 해산물파스타-2,레드와인-1,초코케이크-1)")
-        return Console.readLine().split(',')
-    }
-
-    private fun getValidOrderedMenu(): List<String> {
-        return try {
-            val userInput = getOrderedMenuList()
-            userInput.forEach { isMenuMatchRegex(it) }
-            isMenuQuantityInRange(userInput)
-            isMenuDuplicate(userInput)
-            userInput
-        } catch (e: IllegalArgumentException) {
-            println(e.message)
-            getValidOrderedMenu()
+        val userInput = Console.readLine().split(',')
+        val orderListMap = mutableListOf<Map<String,Int>>()
+        userInput.forEach {
+            isMenuMatchRegex(it)
+            val splitList = it.split('-')
+            orderListMap.add(mapOf(splitList[0] to splitList[1].toInt()))
         }
+        isMenuDuplicate(userInput)
+        isMenuQuantityInRange(userInput)
+        return orderListMap
     }
 }
