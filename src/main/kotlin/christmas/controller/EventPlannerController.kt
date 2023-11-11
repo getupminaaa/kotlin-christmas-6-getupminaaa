@@ -1,8 +1,8 @@
 package christmas.controller
 
-import christmas.model.DateManager
 import christmas.model.Menu
 import christmas.model.MenuManager
+import christmas.model.PromotionManager
 import christmas.util.Validator.isOrderContainsFood
 import christmas.util.Validator.isOrderInMenu
 import christmas.view.InputView
@@ -30,7 +30,7 @@ class EventPlannerController {
         menuManager.calculateTotalPrice(menu.getMenuItemPrice(menuManager.orderMenuNames))
         outputView.printTotalPrice(menuManager.totalPrice)
 
-        val dateManager = DateManager(validDate)
+        val promotionManager = PromotionManager(validDate)
 
     }
 
