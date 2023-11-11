@@ -1,7 +1,7 @@
 package christmas.model
 
 
-class DateManager(private val inputDate: String) {
+class DateManager(private val validDate: Int) {
     val visitDate: Int
         get() = _visitDate
     private var _visitDate = 0
@@ -11,6 +11,6 @@ class DateManager(private val inputDate: String) {
     }
 
     private fun setVisitDate() {
-        if (inputDate.isNotEmpty()) _visitDate = inputDate.toInt()
+        _visitDate = validDate
     }
 }
