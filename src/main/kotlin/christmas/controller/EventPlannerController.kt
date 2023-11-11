@@ -27,7 +27,7 @@ class EventPlannerController {
         val menuManager = MenuManager(validOrder)
         outputView.printMenu(validOrder)
 
-        menuManager.calculateTotalPrice(menu.getMenuItemPrice(menuManager.orderMenuNameList))
+        menuManager.calculateTotalPrice(menu.getMenuItemPrice(menuManager.orderMenuNames))
         outputView.printTotalPrice(menuManager.totalPrice)
 
         val dateManager = DateManager(validDate)
@@ -45,7 +45,7 @@ class EventPlannerController {
     }
     private fun getValidOrder(): List<Map<String, Int>> {
         return try {
-            val userInput = inputView.getOrderedMenuList()
+            val userInput = inputView.getOrderMenu()
             menuCheck(userInput)
             onlyBeverage(userInput)
             userInput

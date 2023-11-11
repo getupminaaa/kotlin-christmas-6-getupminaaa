@@ -8,7 +8,7 @@ class Menu {
         음료
     }
 
-    val menuListMap = mapOf(
+    private val menuBoard = mapOf(
         MenuCategory.애피타이저 to listOf(
             MenuItem("양송이수프", 6000),
             MenuItem("타파스", 5500),
@@ -32,19 +32,19 @@ class Menu {
     )
 
     fun isItemInMenu(itemName: String): Boolean {
-        return menuListMap.values.flatten().any { it.name.equals(itemName) }
+        return menuBoard.values.flatten().any { it.name == itemName }
     }
 
     fun areItemsNotOnlyBeverage(itemNames: List<String>): Boolean {
-        val beverageMenu = menuListMap[MenuCategory.음료]!!.map { it.name }
+        val beverageMenu = menuBoard[MenuCategory.음료]!!.map { it.name }
         return itemNames.subtract(beverageMenu.toSet()).isNotEmpty() //음료만으로 구성되어있지 않음 => true
     }
 
-    fun getMenuItemPrice(itemNameList: List<String>): List<Int> {
-        val priceList = mutableListOf<Int>()
-        itemNameList.forEachIndexed { index, _ ->
-            priceList.add(menuListMap.values.flatten().find { it.name == itemNameList[index] }!!.price)
+    fun getMenuItemPrice(itemNames: List<String>): List<Int> {
+        val prices = mutableListOf<Int>()
+        itemNames.forEachIndexed { index, _ ->
+            prices.add(menuBoard.values.flatten().find { it.name == itemNames[index] }!!.price)
         }
-        return priceList
+        return prices
     }
 }
