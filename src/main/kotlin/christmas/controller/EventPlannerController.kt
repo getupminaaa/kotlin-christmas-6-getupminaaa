@@ -25,8 +25,9 @@ class EventPlannerController {
     fun run(){
         val dateManager = DateManager(validDate)
         outputView.printEventMsg(dateManager.visitDate)
-
+        val menuManager = MenuManager(validOrder)
     }
+
     private fun getValidDate(): Int {
         return try {
             val userInput = inputView.getVisitDate()

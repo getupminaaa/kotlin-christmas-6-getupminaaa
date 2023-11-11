@@ -24,7 +24,12 @@ object Validator {
     }
 
     fun isMenuDuplicate(inputList: List<String>) {
-        require(inputList.size == inputList.toSet().size) { "[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요." }
+        val menuNames = mutableListOf<String>()
+        for(input in inputList){
+            val matchResult = menuRegex.find(input)
+            if(matchResult!=null) menuNames.add(matchResult.groupValues[1])
+        }
+        require(menuNames.size == menuNames.toSet().size) { "[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요." }
     }
 
     fun isOrderInMenu(isInMenu:Boolean){
