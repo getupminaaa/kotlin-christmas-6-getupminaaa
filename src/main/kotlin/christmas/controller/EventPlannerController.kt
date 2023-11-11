@@ -3,8 +3,6 @@ package christmas.controller
 import christmas.model.DateManager
 import christmas.model.Menu
 import christmas.model.MenuManager
-import christmas.util.Validator
-import christmas.util.Validator.isDateInRange
 import christmas.util.Validator.isOrderContainsFood
 import christmas.util.Validator.isOrderInMenu
 import christmas.view.InputView
@@ -27,7 +25,8 @@ class EventPlannerController {
         val dateManager = DateManager(validDate)
         outputView.printEventMsg(dateManager.visitDate)
         val menuManager = MenuManager(validOrder)
-        outputView.printMenu(validOrder)
+        outputView.printMenu(menuManager.orderedMenu)
+        menuManager.calculateTotalPrice(menu.getMenuItemPrice(menuManager.orderedMenuNameList))
     }
 
     private fun getValidDate(): Int {
@@ -50,7 +49,6 @@ class EventPlannerController {
             getValidOrder()
         }
     }
-
     private fun menuCheck(userInput: List<Map<String, Int>>) {
         userInput.flatMap { it.keys }.forEach { isOrderInMenu(menu.isItemInMenu(it)) }
     }
@@ -58,4 +56,7 @@ class EventPlannerController {
         val temp = userInput.flatMap { it.keys }
         isOrderContainsFood(menu.areItemsNotOnlyBeverage(temp))
     }
+
+
+
 }
