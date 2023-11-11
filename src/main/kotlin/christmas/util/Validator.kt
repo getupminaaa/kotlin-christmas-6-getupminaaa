@@ -26,4 +26,8 @@ object Validator {
     fun isMenuDuplicate(inputList: List<String>) {
         require(inputList.size == inputList.toSet().size) { "[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요." }
     }
+
+    fun isOrderInMenu(isInMenu:Boolean){
+        require(isInMenu){"[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요."}
+    }
 }

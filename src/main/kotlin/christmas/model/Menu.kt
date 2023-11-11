@@ -29,4 +29,7 @@ class Menu {
             MenuItem("샴페인", 25000)
         )
     )
+    fun isItemInMenu(itemName: String): Boolean {
+        return menuListMap.values.flatten().any { it.name.contains(itemName) }
+    }
 }
