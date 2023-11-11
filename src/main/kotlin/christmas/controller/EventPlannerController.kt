@@ -22,12 +22,16 @@ class EventPlannerController {
     }
 
     fun run() {
-        val dateManager = DateManager(validDate)
-        outputView.printEventMsg(dateManager.visitDate)
+        outputView.printEventMsg(validDate)
+
         val menuManager = MenuManager(validOrder)
-        outputView.printMenu(menuManager.orderedMenu)
+        outputView.printMenu(validOrder)
+
         menuManager.calculateTotalPrice(menu.getMenuItemPrice(menuManager.orderedMenuNameList))
         outputView.printTotalPrice(menuManager.totalPrice)
+
+        val dateManager = DateManager(validDate)
+
     }
 
     private fun getValidDate(): Int {
