@@ -1,5 +1,5 @@
 package christmas.model
 
-class DiscountCalculator {
+class DiscountCalculator(private val categoryQuantities:List<Map<String,Int>>) {
 
 }

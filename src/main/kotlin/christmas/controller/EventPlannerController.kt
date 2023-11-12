@@ -1,5 +1,6 @@
 package christmas.controller
 
+import christmas.model.DiscountCalculator
 import christmas.model.Menu
 import christmas.model.MenuManager
 import christmas.model.PromotionManager
@@ -33,8 +34,10 @@ class EventPlannerController {
         val promotionManager = PromotionManager(validDate,menuManager.totalPrice)
         outputView.printFreeGift(promotionManager.applicableEvents)
 
-        menu.checkTypeOfFoods(menuManager.orderMenuNames)
-        println(menu.typesOfMenuItems)
+        menu.getTypesOfMenuItems(menuManager.orderMenuNames)
+        menuManager.countMenuByCategory(menu.typesOfMenuItems)
+        val discountCalculator = DiscountCalculator(menuManager.categoryQuantities)
+        
     }
 
     private fun getValidDate(): Int {

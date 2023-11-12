@@ -25,6 +25,7 @@ class Menu {
             MenuItem("샴페인", 25000)
         )
     )
+
     private var _typesOfMenuItems = mutableListOf<String>()
     val typesOfMenuItems: List<String>
         get() = _typesOfMenuItems
@@ -40,22 +41,29 @@ class Menu {
 
     fun getMenuItemPrice(itemNames: List<String>): List<Int> {
         val prices = mutableListOf<Int>()
-        itemNames.forEachIndexed{index, _ -> prices.add(menuBoard.values.flatten().find { it.name == itemNames[index] }!!.price)}
+        itemNames.forEachIndexed { index, _ ->
+            prices.add(
+                menuBoard.values.flatten().find { it.name == itemNames[index] }!!.price
+            )
+        }
         return prices
     }
 
-    fun checkTypeOfFoods(itemNames: List<String>) {
+    fun getTypesOfMenuItems(validOrder: List<String>) {
         val appetizerNames = menuBoard[MenuCategory.APPETIZER]!!.map { it.name }
         val mainDishesNames = menuBoard[MenuCategory.MAIN_DISH]!!.map { it.name }
         val dessertNames = menuBoard[MenuCategory.DESSERT]!!.map { it.name }
         val beverageNames = menuBoard[MenuCategory.BEVERAGE]!!.map { it.name }
-        itemNames.forEach {
+
+        validOrder.forEach {
             when {
                 appetizerNames.contains(it) -> _typesOfMenuItems.add(MenuCategory.APPETIZER.name)
-                mainDishesNames.contains(it) -> _typesOfMenuItems.add(MenuCategory.MAIN_DISH.name)
-                dessertNames.contains(it) -> _typesOfMenuItems.add(MenuCategory.DESSERT.name)
-                beverageNames.contains(it) -> _typesOfMenuItems.add(MenuCategory.BEVERAGE.name)
+                mainDishesNames.contains(it) -> _typesOfMenuItems.add(MenuCategory.MAIN_DISH.name )
+                dessertNames.contains(it) -> _typesOfMenuItems.add(MenuCategory.DESSERT.name )
+                beverageNames.contains(it) -> _typesOfMenuItems.add(MenuCategory.BEVERAGE.name )
             }
         }
     }
+
+
 }
