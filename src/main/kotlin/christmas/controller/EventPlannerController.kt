@@ -39,7 +39,7 @@ class EventPlannerController {
 
         val discountCalculator = DiscountCalculator(promotionManager.dDayEventDate,menuManager.categoryQuantities)
         discountCalculator.doDiscount(promotionManager.applicableEvents)
-
+        outputView.printPromotionHistory(discountCalculator.discountDetails)
     }
 
     private fun getValidDate(): Int {

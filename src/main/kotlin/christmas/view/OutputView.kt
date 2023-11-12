@@ -28,4 +28,10 @@ class OutputView {
         println("\n<증정 메뉴>")
         if(applicableEvents.contains(EventType.FREE_GIFT.name)) println("샴페인 1개") else println("없음")
     }
+    fun printPromotionHistory(discountDetails:List<Pair<String,Int>>){
+        println("\n<혜택 내역>")
+        discountDetails.forEach {
+            println("${it.first}: -${formatCurrency(it.second)}")
+        }
+    }
 }
