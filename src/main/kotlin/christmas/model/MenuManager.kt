@@ -10,10 +10,10 @@ class MenuManager(private val validOrder: List<Map<String, Int>>) {
         get() = _orderMenuNames
     private var _orderMenuNames = listOf<String>()
 
-    val categoryQuantities:List<Map<String,Int>>
+    val categoryQuantities: List<Map<String, Int>>
         get() = _categoryQuantities
 
-    private var  _categoryQuantities = mutableListOf(mapOf<String,Int>())
+    private lateinit var _categoryQuantities: MutableList<Map<String, Int>>
 
     private var _orderMenuQuantities = listOf<Int>()
 
@@ -38,12 +38,9 @@ class MenuManager(private val validOrder: List<Map<String, Int>>) {
         _totalPrice = total
     }
 
-    fun countMenuByCategory(category: List<String>){
-        val result = mutableListOf(mapOf<String, Int>())
-        _orderMenuQuantities.forEachIndexed { index, i ->
-            result.add(mapOf(category[index] to i))
-        }
-        _categoryQuantities = result
+    fun countMenuByCategory(categories: List<String>) {
+        _categoryQuantities = MutableList(_orderMenuQuantities.size) { mapOf() }
+        _orderMenuQuantities.forEachIndexed { index, i -> _categoryQuantities[index] = mapOf(categories[index] to i) }
     }
 
 }
