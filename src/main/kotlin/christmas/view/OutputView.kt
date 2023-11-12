@@ -1,5 +1,7 @@
 package christmas.view
 
+import christmas.util.EventType
+
 class OutputView {
     init {
         printStartMsg()
@@ -8,7 +10,6 @@ class OutputView {
     private fun formatCurrency(price:Int):String{
         return String.format("%,d원", price)
     }
-
     private fun printStartMsg(){
         println("안녕하세요! 우테코 식당 12월 이벤트 플래너입니다.")
     }
@@ -22,5 +23,9 @@ class OutputView {
     fun printTotalPrice(totalPrice:Int){
         println("\n<할인 전 총주문 금액>")
         println(formatCurrency(totalPrice))
+    }
+    fun printFreeGift(applicableEvents:List<String>){
+        println("\n<증정 메뉴>")
+        if(applicableEvents.contains(EventType.FREE_GIFT.name)) println("샴페인 1개") else println("없음")
     }
 }

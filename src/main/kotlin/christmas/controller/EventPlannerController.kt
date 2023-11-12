@@ -30,7 +30,8 @@ class EventPlannerController {
         menuManager.calculateTotalPrice(menu.getMenuItemPrice(menuManager.orderMenuNames))
         outputView.printTotalPrice(menuManager.totalPrice)
 
-        val promotionManager = PromotionManager(validDate)
+        val promotionManager = PromotionManager(validDate,menuManager.totalPrice)
+        outputView.printFreeGift(promotionManager.applicableEvents)
 
     }
 
