@@ -33,6 +33,8 @@ class EventPlannerController {
         val promotionManager = PromotionManager(validDate,menuManager.totalPrice)
         outputView.printFreeGift(promotionManager.applicableEvents)
 
+        menu.checkTypeOfFoods(menuManager.orderMenuNames)
+        println(menu.typesOfMenuItems)
     }
 
     private fun getValidDate(): Int {
