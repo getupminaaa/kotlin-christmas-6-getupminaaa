@@ -34,4 +34,8 @@ class OutputView {
             println("${it.first}: -${formatCurrency(it.second)}")
         }
     }
+    fun printTotalDiscount(totalDiscount:Int){
+        println("\n<총혜택 금액>")
+        println("-${formatCurrency(totalDiscount)}")
+    }
 }

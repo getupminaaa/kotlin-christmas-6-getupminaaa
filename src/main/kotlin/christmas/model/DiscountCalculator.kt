@@ -7,9 +7,9 @@ class DiscountCalculator(
     private val dDayEventDate: Int,
     private val categoryQuantities: List<Map<String, Int>>
 ) {
-    val totalAmount:Int
-        get() = _totalAmount
-    private var _totalAmount = 0
+    val totalDiscount:Int
+        get() = _totalDiscount
+    private var _totalDiscount = 0
 
     val discountDetails:List<Pair<String,Int>>
         get() = _discountsDetails
@@ -38,29 +38,29 @@ class DiscountCalculator(
             when {
                 it.contains(EventType.D_DAY.name) -> {
                     val amount = discountDDay()
-                    _totalAmount += amount
+                    _totalDiscount += amount
                     _discountsDetails.add(EventType.D_DAY.promotionName to amount)
                 }
 
                 it.contains(EventType.WEEKDAYS.name) -> {
                     val amount = discountWeekDays()
-                    _totalAmount += amount
+                    _totalDiscount += amount
                     _discountsDetails.add(EventType.WEEKDAYS.promotionName to amount)
                 }
 
                 it.contains(EventType.WEEKEND.name) -> {
                     val amount = discountWeekend()
-                    _totalAmount += amount
+                    _totalDiscount += amount
                     _discountsDetails.add(EventType.WEEKEND.promotionName to amount)
                 }
 
                 it.contains(EventType.STAR_DAY.name) -> {
-                    _totalAmount += 1000
+                    _totalDiscount += 1000
                     _discountsDetails.add(EventType.STAR_DAY.promotionName to 1000)
                 }
 
                 it.contains(EventType.FREE_GIFT.name) -> {
-                    _totalAmount += 25000
+                    _totalDiscount += 25000
                     _discountsDetails.add(EventType.FREE_GIFT.promotionName to 25000)
                 }
             }
