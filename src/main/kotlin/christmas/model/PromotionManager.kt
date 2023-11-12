@@ -10,6 +10,9 @@ class PromotionManager(private val validDate:Int,private val totalPrice: Int) {
     val applicableEvents: MutableList<String>
         get() = _applicableEvents
     private var _applicableEvents = mutableListOf<String>()
+    val dDayEventDate: Int
+        get() = _dDayEventDate
+    private var _dDayEventDate = 0
 
 
     private fun areAllEventsApplicable(): Boolean = (totalPrice >= 10000)
@@ -21,10 +24,23 @@ class PromotionManager(private val validDate:Int,private val totalPrice: Int) {
             else -> _applicableEvents.add(EventType.WEEKEND.name)
         }
     }
+    private fun isDDayEventApplicable() {
+        if (validDate <= 25) {
+            _applicableEvents.add(EventType.D_DAY.name)
+            calDDayEventDate()
+        }
+    }
+
+    private fun calDDayEventDate() {
+        _dDayEventDate = validDate - 1
+    }
+
+
     private fun checkApplicableEvent() {
         if (areAllEventsApplicable()) {
             calDateEvent()
-
+            isDDayEventApplicable()
         }
     }
+
 }
