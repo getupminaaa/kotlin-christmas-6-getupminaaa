@@ -1,13 +1,8 @@
 package christmas.model
 
-class Menu {
-    enum class MenuCategory {
-        APPETIZER,
-        MAIN_DISH,
-        DESSERT,
-        BEVERAGE
-    }
+import christmas.util.MenuCategory
 
+class Menu {
     private val menuBoard = mapOf(
         MenuCategory.APPETIZER to listOf(
             MenuItem("양송이수프", 6000),
@@ -30,11 +25,9 @@ class Menu {
             MenuItem("샴페인", 25000)
         )
     )
-
+    private var _typesOfMenuItems = mutableListOf<String>()
     val typesOfMenuItems: List<String>
         get() = _typesOfMenuItems
-
-    private var _typesOfMenuItems = mutableListOf<String>()
 
     fun isItemInMenu(itemName: String): Boolean {
         return menuBoard.values.flatten().any { it.name == itemName }
@@ -42,14 +35,12 @@ class Menu {
 
     fun areItemsNotOnlyBeverage(itemNames: List<String>): Boolean {
         val beverageMenu = menuBoard[MenuCategory.BEVERAGE]!!.map { it.name }
-        return itemNames.subtract(beverageMenu.toSet()).isNotEmpty() //음료만으로 구성되어있지 않음 => true
+        return itemNames.subtract(beverageMenu.toSet()).isNotEmpty()
     }
 
     fun getMenuItemPrice(itemNames: List<String>): List<Int> {
         val prices = mutableListOf<Int>()
-        itemNames.forEachIndexed { index, _ ->
-            prices.add(menuBoard.values.flatten().find { it.name == itemNames[index] }!!.price)
-        }
+        itemNames.forEachIndexed{index, _ -> prices.add(menuBoard.values.flatten().find { it.name == itemNames[index] }!!.price)}
         return prices
     }
 
@@ -58,7 +49,6 @@ class Menu {
         val mainDishesNames = menuBoard[MenuCategory.MAIN_DISH]!!.map { it.name }
         val dessertNames = menuBoard[MenuCategory.DESSERT]!!.map { it.name }
         val beverageNames = menuBoard[MenuCategory.BEVERAGE]!!.map { it.name }
-
         itemNames.forEach {
             when {
                 appetizerNames.contains(it) -> _typesOfMenuItems.add(MenuCategory.APPETIZER.name)
