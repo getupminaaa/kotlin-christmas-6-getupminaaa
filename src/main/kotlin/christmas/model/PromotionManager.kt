@@ -2,10 +2,10 @@ package christmas.model
 
 import christmas.util.EventType
 
-class PromotionManager(private val validDate:Int,private val totalPrice: Int) {
+class PromotionManager(private val validDate: Int, private val totalPrice: Int) {
 
-    private val weekDays = mapOf(EventType.WEEKDAYS to listOf(4, 5, 6, 7, 11, 12, 13, 14, 18, 19, 20, 21, 25, 26, 27, 28))
-    private val starDays = mapOf(EventType.STAR_DAY to listOf(3, 10, 17, 24, 25, 31))
+    private val weekends = listOf(1, 2, 8, 9, 15, 16, 22, 23, 29, 30)
+    private val starDays = listOf(3, 10, 17, 24, 25, 31)
 
     val applicableEvents: MutableList<String>
         get() = _applicableEvents
@@ -26,22 +26,31 @@ class PromotionManager(private val validDate:Int,private val totalPrice: Int) {
             calDDayEventDate()
         }
     }
+
     private fun calDDayEventDate() {
         _dDayEventDate = validDate - 1
     }
 
+    private fun isWeekend() {
+        if (weekends.contains(validDate)) _applicableEvents.add(EventType.WEEKEND.name)
+    }
+
+    private fun isWeekDays() {
+        if (!weekends.contains(validDate)) _applicableEvents.add(EventType.WEEKDAYS.name)
+    }
+
+    private fun isStarDays() {
+        if (starDays.contains(validDate)) _applicableEvents.add(EventType.STAR_DAY.name)
+    }
+
     private fun calDateEvent() {
-        when {
-            validDate == 25 -> _applicableEvents.addAll(listOf(EventType.WEEKDAYS.name,EventType.STAR_DAY.name))
-            weekDays.flatMap { it.value }.contains(validDate) -> _applicableEvents.add(EventType.WEEKDAYS.name)
-            starDays.flatMap { it.value }.contains(validDate) -> _applicableEvents.add(EventType.STAR_DAY.name)
-            else -> _applicableEvents.add(EventType.WEEKEND.name)
-        }
+        isWeekend()
+        isStarDays()
+        isWeekDays()
     }
 
     private fun isGiftEventApplicable() {
         if (totalPrice >= 120000) _applicableEvents.add(EventType.FREE_GIFT.name)
-
     }
 
     private fun checkApplicableEvent() {

@@ -37,7 +37,9 @@ class EventPlannerController {
         menu.getTypesOfMenuItems(menuManager.orderMenuNames)
         menuManager.countMenuByCategory(menu.typesOfMenuItems)
 
-        val discountCalculator = DiscountCalculator(promotionManager.applicableEvents,menuManager.categoryQuantities)
+        val discountCalculator = DiscountCalculator(promotionManager.dDayEventDate,menuManager.categoryQuantities)
+        discountCalculator.doDiscount(promotionManager.applicableEvents)
+
     }
 
     private fun getValidDate(): Int {
