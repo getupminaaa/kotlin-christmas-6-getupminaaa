@@ -1,6 +1,7 @@
 package christmas.model
 
-import org.junit.jupiter.api.Assertions.assertEquals
+import camp.nextstep.edu.missionutils.test.Assertions
+import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 
@@ -15,4 +16,13 @@ class MenuTest {
         val actualValue = input.map { menu.isItemInMenu(it) }
         assertEquals(expectedValue, actualValue)
     }
+
+    @Test
+    @DisplayName("음료로만 구성되어있지 않을 경우 true, 음료로만 구성되어있을 경우 false를 반한하는지")
+    fun areItemsNotOnlyBeverageTest() {
+        assertFalse { menu.areItemsNotOnlyBeverage(listOf("제로콜라", "레드와인", "샴페인")) }
+        assertTrue { menu.areItemsNotOnlyBeverage(listOf("제로콜라", "타파스", "초코케이크")) }
+        assertTrue { menu.areItemsNotOnlyBeverage(listOf("티본스테이크", "타파스", "초코케이크")) }
+    }
+    
 }
