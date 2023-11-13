@@ -1,6 +1,6 @@
 package christmas.model
 
-class MenuManager(private val validOrder: List<Map<String, Int>>) {
+class OrderManager() {
 
     val totalPrice: Int
         get() = _totalPrice
@@ -17,16 +17,12 @@ class MenuManager(private val validOrder: List<Map<String, Int>>) {
 
     private var _orderMenuQuantities = listOf<Int>()
 
-    init {
-        setOrderMenuNames()
-        setOrderMenuQuantities()
-    }
 
-    private fun setOrderMenuNames() {
+    fun setOrderMenuNames(validOrder: List<Map<String, Int>>) {
         _orderMenuNames = validOrder.flatMap { it.keys }
     }
 
-    private fun setOrderMenuQuantities() {
+    fun setOrderMenuQuantities(validOrder: List<Map<String, Int>>) {
         _orderMenuQuantities = validOrder.flatMap { it.values }
     }
 

@@ -2,7 +2,7 @@ package christmas.model
 
 import christmas.util.MenuCategory
 
-class Menu {
+class MenuBoard {
     private val menuBoard = mapOf(
         MenuCategory.APPETIZER to listOf(
             MenuItem("양송이수프", 6000),
@@ -25,11 +25,7 @@ class Menu {
             MenuItem("샴페인", 25000)
         )
     )
-
-    private var _typesOfMenuItems = mutableListOf<String>()
-    val typesOfMenuItems: List<String>
-        get() = _typesOfMenuItems
-
+s
     fun isItemInMenu(itemName: String): Boolean {
         return menuBoard.values.flatten().any { it.name == itemName }
     }
@@ -49,7 +45,9 @@ class Menu {
         return prices
     }
 
-    fun getTypesOfMenuItems(validOrder: List<String>) {
+    fun getTypesOfMenuItems(validOrder: List<String>): List<String> {
+        val types = mutableListOf<String>()
+
         val appetizerNames = menuBoard[MenuCategory.APPETIZER]!!.map { it.name }
         val mainDishesNames = menuBoard[MenuCategory.MAIN_DISH]!!.map { it.name }
         val dessertNames = menuBoard[MenuCategory.DESSERT]!!.map { it.name }
@@ -57,12 +55,13 @@ class Menu {
 
         validOrder.forEach {
             when {
-                appetizerNames.contains(it) -> _typesOfMenuItems.add(MenuCategory.APPETIZER.name)
-                mainDishesNames.contains(it) -> _typesOfMenuItems.add(MenuCategory.MAIN_DISH.name )
-                dessertNames.contains(it) -> _typesOfMenuItems.add(MenuCategory.DESSERT.name )
-                beverageNames.contains(it) -> _typesOfMenuItems.add(MenuCategory.BEVERAGE.name )
+                appetizerNames.contains(it) -> types.add(MenuCategory.APPETIZER.name)
+                mainDishesNames.contains(it) -> types.add(MenuCategory.MAIN_DISH.name)
+                dessertNames.contains(it) -> types.add(MenuCategory.DESSERT.name)
+                beverageNames.contains(it) -> types.add(MenuCategory.BEVERAGE.name)
             }
         }
+        return types
     }
 
 
