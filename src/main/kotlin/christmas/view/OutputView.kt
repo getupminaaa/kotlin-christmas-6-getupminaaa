@@ -17,7 +17,7 @@ class OutputView {
         println("12월 %d일에 우테코 식당에서 받을 이벤트 혜택 미리 보기!".format(date))
     }
     fun printMenu(menuList:List<Map<String,Int>>){
-        println("\n<주문메뉴>")
+        println("\n<주문 메뉴>")
         menuList.flatMap { it.entries }.forEach { (key,value)-> println("$key ${value}개") }
     }
     fun printTotalPrice(totalPrice:Int){
@@ -30,9 +30,11 @@ class OutputView {
     }
     fun printPromotionHistory(discountDetails:List<Pair<String,Int>>){
         println("\n<혜택 내역>")
-        discountDetails.forEach {
-            println("${it.first}: -${formatCurrency(it.second)}")
-        }
+        if(discountDetails.isNotEmpty()){
+            discountDetails.forEach {
+                println("${it.first}: -${formatCurrency(it.second)}")
+            }
+        }else println("없음")
     }
     fun printTotalDiscount(totalDiscount:Int){
         println("\n<총혜택 금액>")
