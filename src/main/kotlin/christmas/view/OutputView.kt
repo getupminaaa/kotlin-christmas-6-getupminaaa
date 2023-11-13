@@ -42,4 +42,10 @@ class OutputView {
         println("\n<할인 후 예상 결제 금액>")
         println(formatCurrency(finalPayment))
     }
+    fun printEventBadge(eventBadge:String){
+        var output = ""
+        println("\n<12월 이벤트 배지>")
+        output = if(EventType.BADGE_EVENT.promotionName.contains(eventBadge)) eventBadge else "없음"
+        println(output)
+    }
 }

@@ -14,6 +14,10 @@ class PromotionManager(private val validDate: Int, private val totalPrice: Int) 
         get() = _dDayEventDate
     private var _dDayEventDate = 0
 
+    val eventBadge:String
+        get() = _eventBadge
+    private var _eventBadge = ""
+
     init {
         checkApplicableEvent()
     }
@@ -59,10 +63,10 @@ class PromotionManager(private val validDate: Int, private val totalPrice: Int) 
 
     fun getEventBadgeType(totalDiscount: Int) {
         if (totalDiscount >= 5000) {
-            when (totalDiscount) {
-                in 5000 until 10000 -> _applicableEvents.add(getBadgeName(0))
-                in 10000 until 20000 -> _applicableEvents.add(getBadgeName(1))
-                else -> _applicableEvents.add(getBadgeName(2))
+            _eventBadge = when (totalDiscount) {
+                in 5000 until 10000 -> getBadgeName(0)
+                in 10000 until 20000 -> getBadgeName(1)
+                else -> getBadgeName(2)
             }
         }
     }
