@@ -24,5 +24,13 @@ class MenuTest {
         assertTrue { menu.areItemsNotOnlyBeverage(listOf("제로콜라", "타파스", "초코케이크")) }
         assertTrue { menu.areItemsNotOnlyBeverage(listOf("티본스테이크", "타파스", "초코케이크")) }
     }
-    
+
+    @Test
+    @DisplayName("입력된 메뉴들에 따른 가격을 잘 반환하는지")
+    fun getMenuItemPriceTest(){
+        val items = listOf("타파스","초코케이크","레드와인","해산물파스타","바비큐립","시저샐러드")
+        val expected = listOf(5500,15000,60000,35000,54000,8000)
+        val actualValue  = menu.getMenuItemPrice(items)
+        assertEquals(expected,actualValue)
+    }
 }
