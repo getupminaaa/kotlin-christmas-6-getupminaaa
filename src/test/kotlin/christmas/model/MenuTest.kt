@@ -1,6 +1,7 @@
 package christmas.model
 
 import camp.nextstep.edu.missionutils.test.Assertions
+import christmas.util.MenuCategory
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
@@ -31,6 +32,17 @@ class MenuTest {
         val items = listOf("타파스","초코케이크","레드와인","해산물파스타","바비큐립","시저샐러드")
         val expected = listOf(5500,15000,60000,35000,54000,8000)
         val actualValue  = menu.getMenuItemPrice(items)
+        assertEquals(expected,actualValue)
+    }
+
+    @Test
+    @DisplayName("입력된 여러 메뉴들에 대해 메뉴 카테고리를 잘 반환하는지")
+    fun getTypesOfMenuItemsTest(){
+        val items = listOf("타파스","초코케이크","레드와인","해산물파스타","바비큐립","시저샐러드")
+        val expected = listOf(MenuCategory.APPETIZER.name,MenuCategory.DESSERT.name,MenuCategory.BEVERAGE.name,MenuCategory.MAIN_DISH.name,MenuCategory.MAIN_DISH.name,MenuCategory.APPETIZER.name)
+        menu.getTypesOfMenuItems(items)
+        val actualValue = menu.typesOfMenuItems
+
         assertEquals(expected,actualValue)
     }
 }
