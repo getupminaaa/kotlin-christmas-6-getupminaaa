@@ -7,13 +7,18 @@ class DiscountCalculator(
     private val dDayEventDate: Int,
     private val categoryQuantities: List<Map<String, Int>>
 ) {
-    val totalDiscount:Int
+    val totalDiscount: Int
         get() = _totalDiscount
     private var _totalDiscount = 0
 
-    val discountDetails:List<Pair<String,Int>>
+    val discountDetails: List<Pair<String, Int>>
         get() = _discountsDetails
     private val _discountsDetails = mutableListOf<Pair<String, Int>>()
+
+    val finalPayment: Int
+        get() = _finalPayment
+    private var _finalPayment = 0
+
 
     // -- 할인 --
     //크리스마스 디데이 할인 계산
@@ -31,6 +36,11 @@ class DiscountCalculator(
         var count = 0
         categoryQuantities.forEach { count += it.getOrDefault(MenuCategory.MAIN_DISH.name, 0) }
         return count * 2023
+    }
+
+    fun calFinalPayment(applicableEvents: List<String>, totalPrice: Int){
+        _finalPayment = totalPrice - totalDiscount
+        if (applicableEvents.contains(EventType.FREE_GIFT.name)) _finalPayment += 25000 else _finalPayment
     }
 
     fun doDiscount(applicableEvents: List<String>) {

@@ -41,6 +41,7 @@ class EventPlannerController {
         discountCalculator.doDiscount(promotionManager.applicableEvents)
         outputView.printPromotionHistory(discountCalculator.discountDetails)
         outputView.printTotalDiscount(discountCalculator.totalDiscount)
+        discountCalculator.calFinalPayment(promotionManager.applicableEvents,menuManager.totalPrice)
     }
 
     private fun getValidDate(): Int {
