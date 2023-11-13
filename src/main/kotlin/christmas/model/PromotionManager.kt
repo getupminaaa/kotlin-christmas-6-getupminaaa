@@ -53,6 +53,20 @@ class PromotionManager(private val validDate: Int, private val totalPrice: Int) 
         if (totalPrice >= 120000) _applicableEvents.add(EventType.FREE_GIFT.name)
     }
 
+    private fun getBadgeName(index: Int): String {
+        return EventType.BADGE_EVENT.promotionName.split(',')[index]
+    }
+
+    fun getEventBadgeType(totalDiscount: Int) {
+        if (totalDiscount >= 5000) {
+            when (totalDiscount) {
+                in 5000 until 10000 -> _applicableEvents.add(getBadgeName(0))
+                in 10000 until 20000 -> _applicableEvents.add(getBadgeName(1))
+                else -> _applicableEvents.add(getBadgeName(2))
+            }
+        }
+    }
+
     private fun checkApplicableEvent() {
         if (areAllEventsApplicable()) {
             isDDayEventApplicable()

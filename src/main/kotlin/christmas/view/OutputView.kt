@@ -38,4 +38,8 @@ class OutputView {
         println("\n<총혜택 금액>")
         println("-${formatCurrency(totalDiscount)}")
     }
+    fun printFinalPayment(finalPayment:Int){
+        println("\n<할인 후 예상 결제 금액>")
+        println(formatCurrency(finalPayment))
+    }
 }

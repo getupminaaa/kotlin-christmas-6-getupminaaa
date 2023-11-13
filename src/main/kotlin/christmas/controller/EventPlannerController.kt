@@ -31,17 +31,19 @@ class EventPlannerController {
         menuManager.calculateTotalPrice(menu.getMenuItemPrice(menuManager.orderMenuNames))
         outputView.printTotalPrice(menuManager.totalPrice)
 
-        val promotionManager = PromotionManager(validDate,menuManager.totalPrice)
+        val promotionManager = PromotionManager(validDate, menuManager.totalPrice)
         outputView.printFreeGift(promotionManager.applicableEvents)
 
         menu.getTypesOfMenuItems(menuManager.orderMenuNames)
         menuManager.countMenuByCategory(menu.typesOfMenuItems)
 
-        val discountCalculator = DiscountCalculator(promotionManager.dDayEventDate,menuManager.categoryQuantities)
+        val discountCalculator = DiscountCalculator(promotionManager.dDayEventDate, menuManager.categoryQuantities)
         discountCalculator.doDiscount(promotionManager.applicableEvents)
         outputView.printPromotionHistory(discountCalculator.discountDetails)
         outputView.printTotalDiscount(discountCalculator.totalDiscount)
-        discountCalculator.calFinalPayment(promotionManager.applicableEvents,menuManager.totalPrice)
+        discountCalculator.calFinalPayment(promotionManager.applicableEvents, menuManager.totalPrice)
+        outputView.printFinalPayment(discountCalculator.finalPayment)
+        promotionManager.getEventBadgeType(discountCalculator.totalDiscount)
     }
 
     private fun getValidDate(): Int {
@@ -53,6 +55,7 @@ class EventPlannerController {
             getValidDate()
         }
     }
+
     private fun getValidOrder(): List<Map<String, Int>> {
         return try {
             val userInput = inputView.getOrderMenu()
@@ -64,14 +67,15 @@ class EventPlannerController {
             getValidOrder()
         }
     }
+
     private fun menuCheck(userInput: List<Map<String, Int>>) {
         userInput.flatMap { it.keys }.forEach { isOrderInMenu(menu.isItemInMenu(it)) }
     }
+
     private fun onlyBeverage(userInput: List<Map<String, Int>>) {
         val temp = userInput.flatMap { it.keys }
         isOrderContainsFood(menu.areItemsNotOnlyBeverage(temp))
     }
-
 
 
 }
