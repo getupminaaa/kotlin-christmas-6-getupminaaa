@@ -4,6 +4,8 @@ import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.params.ParameterizedTest
+import org.junit.jupiter.params.provider.CsvSource
 
 class EventTest {
     private val totalPrice = 142000
@@ -17,31 +19,20 @@ class EventTest {
         assertThat(event.applicableEvents.subtract(expected).isEmpty()).isTrue()
     }
 
-    @Test
+    @ParameterizedTest
+    @CsvSource(value = ["5000,별", "9000,별", "10000,트리", "19000,트리", "20000,산타", "30000,산타"], delimiter = ',')
     @DisplayName("금액에 따른 eventBadge값이 올바른지 확인")
-    fun getEventBadgeTest() {
-        val totalDiscounts = listOf(5000, 9000, 10000, 19000, 20000, 30000)
-        val expected = listOf("별", "별", "트리", "트리", "산타", "산타")
-        val actualValues = mutableListOf<String>()
-        totalDiscounts.forEach {
-            event.getEventBadgeType(it)
-            actualValues.add(event.eventBadge)
-        }
-        assertEquals(expected, actualValues)
+    fun getEventBadgeTest(totalDiscount: Int, expected: String) {
+        event.getEventBadgeType(totalDiscount)
+        assertEquals(expected, event.eventBadge)
     }
 
-    @Test
+    @ParameterizedTest
+    @CsvSource(value = ["3,2", "10,9", "21,20", "25,24"], delimiter = ',')
     @DisplayName("dDayEventDate 값이 올바른지 확인")
-    fun compareDDayEventDate() {
-        val validDates = listOf(3, 10, 21, 25)
-        val expected = listOf(2, 9, 20, 24)
-        val actualValues = mutableListOf<Int>()
-        event.applicableEvents
-        validDates.forEach {
-            val newEvent = Event(it, 10000)
-            actualValues.add(newEvent.dDayEventDate)
-        }
-        assertEquals(expected, actualValues)
+    fun compareDDayEventDate(validDate: Int, expected: Int) {
+        val event = Event(validDate, 10000)
+        assertEquals(expected, event.dDayEventDate)
     }
 
 }

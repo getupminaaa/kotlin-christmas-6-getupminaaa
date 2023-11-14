@@ -5,6 +5,8 @@ import christmas.util.MenuCategory
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.params.ParameterizedTest
+import org.junit.jupiter.params.provider.CsvSource
 
 class MenuBoardTest {
     private val menuBoard = MenuBoard()
@@ -17,12 +19,13 @@ class MenuBoardTest {
         mapOf("시저샐러드" to 1)
     )
 
-    @Test
-    @DisplayName("메뉴판에 있을 경우 true, 없을 경우 false를 반환하는지")
-    fun isInItemMenuTest() {
-        val input = listOf("타파스", "소갈비", "티본스테이크", "갈비찜", "계란말이", "제로콜라", "초코케이크")
-        val expectedValue = listOf(true, false, true, false, false, true, true)
-        val actualValue = input.map { menuBoard.isItemInMenu(it) }
+    @ParameterizedTest
+    @CsvSource(
+        value = ["타파스,true", "소갈비,false", "티본스테이크,true", "갈비찜,false", "계란말이,false", "제로콜라,true", "초코케이크,true"],
+        delimiter = ','
+    )
+    fun isInItemMenuTest(inputMenu: String, expectedValue: Boolean) {
+        val actualValue = menuBoard.isItemInMenu(inputMenu)
         assertEquals(expectedValue, actualValue)
     }
 
