@@ -39,11 +39,11 @@ class DiscountCalculator(
             else -> null to 0
         }
 
-    fun calFinalPayment(applicableEvents: List<String>, totalPrice: Int){
-        _finalPayment = totalPrice - totalDiscount
-        if (applicableEvents.contains(EventType.FREE_GIFT.name)) _finalPayment += 25000 else _finalPayment
+    fun calFinalPayment(applicableEvents: List<String>, totalPrice: Int) {
+        _finalPayment = totalPrice - _totalDiscount
+        if (applicableEvents.contains(EventType.FREE_GIFT.name)) _finalPayment += 25000
     }
-    
+
     fun doDiscount(applicableEvents: List<String>) {
         applicableEvents.forEach { event ->
             val (eventType, amount) = getDiscountDetails(event)
