@@ -10,6 +10,7 @@ class Event(private val validDate: Int, private val totalPrice: Int) {
     val applicableEvents: MutableList<String>
         get() = _applicableEvents
     private var _applicableEvents = mutableListOf<String>()
+
     val dDayEventDate: Int
         get() = _dDayEventDate
     private var _dDayEventDate = 0
