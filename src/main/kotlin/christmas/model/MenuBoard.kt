@@ -29,14 +29,6 @@ class MenuBoard {
         return itemNames.subtract(beverageMenu.toSet()).isNotEmpty()
     }
 
-    fun getMenuItemPrices(validOrder: List<Map<String, Int>>): List<Int> {
-        val prices = mutableListOf<Int>()
-        validOrder.flatMap { it.keys }.forEach { name ->
-            prices.add(menuBoard.first { it.name == name }.price)
-        }
-        return prices
-    }
-
     fun getMenuItems(validOrder: List<Map<String, Int>>): List<MenuItem> {
         val menuItem = mutableListOf<MenuItem>()
         validOrder.flatMap { it.keys }.forEach { name ->
