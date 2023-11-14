@@ -2,8 +2,8 @@ package christmas.model
 
 import christmas.model.data.MenuItem
 import christmas.model.data.OrderForm
-import christmas.util.EventType
-import christmas.util.MenuCategory
+import christmas.util.enums.EventType
+import christmas.util.enums.MenuCategory
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test

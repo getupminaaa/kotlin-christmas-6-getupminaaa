@@ -1,11 +1,9 @@
 package christmas.model
 
-import christmas.util.EventType
+import christmas.util.enums.EventDay
+import christmas.util.enums.EventType
 
 class Event(private val validDate: Int, private val totalPrice: Int) {
-
-    private val weekends = listOf(1, 2, 8, 9, 15, 16, 22, 23, 29, 30)
-    private val starDays = listOf(3, 10, 17, 24, 25, 31)
 
     val applicableEvents: MutableList<String>
         get() = _applicableEvents
@@ -37,15 +35,15 @@ class Event(private val validDate: Int, private val totalPrice: Int) {
     }
 
     private fun isWeekend() {
-        if (weekends.contains(validDate)) _applicableEvents.add(EventType.WEEKEND.name)
+        if (EventDay.WEEKEND_DATES.dates.contains(validDate)) _applicableEvents.add(EventType.WEEKEND.name)
     }
 
     private fun isWeekDays() {
-        if (!weekends.contains(validDate)) _applicableEvents.add(EventType.WEEKDAYS.name)
+        if (!EventDay.WEEKEND_DATES.dates.contains(validDate)) _applicableEvents.add(EventType.WEEKDAYS.name)
     }
 
     private fun isStarDays() {
-        if (starDays.contains(validDate)) _applicableEvents.add(EventType.STAR_DAY.name)
+        if (EventDay.STAR_DAY_DATES.dates.contains(validDate)) _applicableEvents.add(EventType.STAR_DAY.name)
     }
 
     private fun calDateEvent() {

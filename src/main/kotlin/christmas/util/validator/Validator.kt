@@ -1,4 +1,6 @@
-package christmas.util
+package christmas.util.validator
+
+import christmas.util.enums.ErrorMessage
 
 object Validator {
     private val dateRegex = "^([1-9]|[12]\\d|3[01])\$".toRegex()

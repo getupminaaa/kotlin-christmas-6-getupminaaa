@@ -1,4 +1,4 @@
-package christmas.util
+package christmas.util.enums
 
 enum class EventType(val promotionName:String){
     STAR_DAY("특별 할인"),

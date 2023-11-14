@@ -1,10 +1,10 @@
 package christmas.view
 
 import camp.nextstep.edu.missionutils.Console
-import christmas.util.Validator.isDateInRange
-import christmas.util.Validator.isMenuDuplicate
-import christmas.util.Validator.isMenuMatchRegex
-import christmas.util.Validator.isMenuQuantityInRange
+import christmas.util.validator.Validator.isDateInRange
+import christmas.util.validator.Validator.isMenuDuplicate
+import christmas.util.validator.Validator.isMenuMatchRegex
+import christmas.util.validator.Validator.isMenuQuantityInRange
 
 class InputView {
     fun getVisitDate(): Int {

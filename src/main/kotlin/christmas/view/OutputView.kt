@@ -1,6 +1,6 @@
 package christmas.view
 
-import christmas.util.EventType
+import christmas.util.enums.EventType
 
 class OutputView {
     init {

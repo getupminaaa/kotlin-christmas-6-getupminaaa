@@ -1,7 +1,7 @@
 package christmas.model
 
 import christmas.model.data.MenuItem
-import christmas.util.MenuCategory
+import christmas.util.enums.MenuCategory
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test

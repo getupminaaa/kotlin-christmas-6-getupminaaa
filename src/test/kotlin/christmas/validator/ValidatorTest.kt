@@ -1,9 +1,9 @@
 package christmas.validator
 
-import christmas.util.Validator.isDateInRange
-import christmas.util.Validator.isMenuDuplicate
-import christmas.util.Validator.isMenuMatchRegex
-import christmas.util.Validator.isMenuQuantityInRange
+import christmas.util.validator.Validator.isDateInRange
+import christmas.util.validator.Validator.isMenuDuplicate
+import christmas.util.validator.Validator.isMenuMatchRegex
+import christmas.util.validator.Validator.isMenuQuantityInRange
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.assertThrows
 import org.junit.jupiter.params.ParameterizedTest

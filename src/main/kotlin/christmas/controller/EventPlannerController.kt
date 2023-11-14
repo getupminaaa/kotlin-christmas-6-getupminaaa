@@ -4,8 +4,8 @@ import christmas.model.DiscountCalculator
 import christmas.model.Event
 import christmas.model.MenuBoard
 import christmas.model.Order
-import christmas.util.Validator.isOrderContainsFood
-import christmas.util.Validator.isOrderInMenu
+import christmas.util.validator.Validator.isOrderContainsFood
+import christmas.util.validator.Validator.isOrderInMenu
 import christmas.view.InputView
 import christmas.view.OutputView
 

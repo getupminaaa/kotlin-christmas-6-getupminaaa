@@ -1,7 +1,7 @@
 package christmas.model
 
 import christmas.model.data.MenuItem
-import christmas.util.MenuCategory
+import christmas.util.enums.MenuCategory
 
 class MenuBoard {
     private val menuBoard = listOf(
