@@ -1,5 +1,6 @@
 package christmas.model
 
+import christmas.model.data.MenuItem
 import christmas.util.MenuCategory
 
 class MenuBoard {

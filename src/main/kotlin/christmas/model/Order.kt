@@ -1,5 +1,8 @@
 package christmas.model
 
+import christmas.model.data.MenuItem
+import christmas.model.data.OrderForm
+
 class Order() {
 
     val totalPrice: Int
