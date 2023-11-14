@@ -29,43 +29,26 @@ class DiscountCalculator(
     private fun discountWeekend() =
         orderForms.find { it.menuItem.category == MenuCategory.MAIN_DISH.name }?.quantity?.times(2023) ?: 0
 
+    private fun getDiscountDetails(event: String) =
+        when (event) {
+            EventType.D_DAY.name -> EventType.D_DAY to discountDDay()
+            EventType.WEEKDAYS.name -> EventType.WEEKDAYS to discountWeekDays()
+            EventType.WEEKEND.name -> EventType.WEEKEND to discountWeekend()
+            EventType.STAR_DAY.name -> EventType.STAR_DAY to 1000
+            EventType.FREE_GIFT.name -> EventType.FREE_GIFT to 25000
+            else -> null to 0
+        }
 
     fun calFinalPayment(applicableEvents: List<String>, totalPrice: Int){
         _finalPayment = totalPrice - totalDiscount
         if (applicableEvents.contains(EventType.FREE_GIFT.name)) _finalPayment += 25000 else _finalPayment
     }
-
+    
     fun doDiscount(applicableEvents: List<String>) {
-        applicableEvents.forEach {
-            when {
-                it.contains(EventType.D_DAY.name) -> {
-                    val amount = discountDDay()
-                    _totalDiscount += amount
-                    _discountsDetails.add(EventType.D_DAY.promotionName to amount)
-                }
-
-                it.contains(EventType.WEEKDAYS.name) -> {
-                    val amount = discountWeekDays()
-                    _totalDiscount += amount
-                    _discountsDetails.add(EventType.WEEKDAYS.promotionName to amount)
-                }
-
-                it.contains(EventType.WEEKEND.name) -> {
-                    val amount = discountWeekend()
-                    _totalDiscount += amount
-                    _discountsDetails.add(EventType.WEEKEND.promotionName to amount)
-                }
-
-                it.contains(EventType.STAR_DAY.name) -> {
-                    _totalDiscount += 1000
-                    _discountsDetails.add(EventType.STAR_DAY.promotionName to 1000)
-                }
-
-                it.contains(EventType.FREE_GIFT.name) -> {
-                    _totalDiscount += 25000
-                    _discountsDetails.add(EventType.FREE_GIFT.promotionName to 25000)
-                }
-            }
+        applicableEvents.forEach { event ->
+            val (eventType, amount) = getDiscountDetails(event)
+            if (eventType != null) _discountsDetails.add(eventType.promotionName to amount)
+            _totalDiscount += amount
         }
     }
 }
