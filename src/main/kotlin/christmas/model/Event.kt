@@ -15,7 +15,7 @@ class Event(private val validDate: Int, private val totalPrice: Int) {
         get() = _dDayEventDate
     private var _dDayEventDate = 0
 
-    val eventBadge:String
+    val eventBadge: String
         get() = _eventBadge
     private var _eventBadge = ""
 
@@ -23,17 +23,17 @@ class Event(private val validDate: Int, private val totalPrice: Int) {
         checkApplicableEvent()
     }
 
-    private fun areAllEventsApplicable(): Boolean = (totalPrice >= 10000)
+    private fun areAllEventsApplicable(): Boolean = (totalPrice >= EVENT_BASE_AMOUNT)
 
     private fun isDDayEventApplicable() {
-        if (validDate <= 25) {
+        if (validDate <= XMAS_DAY) {
             _applicableEvents.add(EventType.D_DAY.name)
             calDDayEventDate()
         }
     }
 
     private fun calDDayEventDate() {
-        _dDayEventDate = validDate - 1
+        _dDayEventDate = validDate - D_DAY_SUBTRACTION_FACTOR
     }
 
     private fun isWeekend() {
@@ -55,7 +55,7 @@ class Event(private val validDate: Int, private val totalPrice: Int) {
     }
 
     private fun isGiftEventApplicable() {
-        if (totalPrice >= 120000) _applicableEvents.add(EventType.FREE_GIFT.name)
+        if (totalPrice >= FREE_GIFT_BASE_AMOUNT) _applicableEvents.add(EventType.FREE_GIFT.name)
     }
 
     private fun getBadgeName(index: Int): String {
@@ -63,10 +63,10 @@ class Event(private val validDate: Int, private val totalPrice: Int) {
     }
 
     fun getEventBadgeType(totalDiscount: Int) {
-        if (totalDiscount >= 5000) {
+        if (totalDiscount >= EVENT_BADGE_STAR) {
             _eventBadge = when (totalDiscount) {
-                in 5000 until 10000 -> getBadgeName(0)
-                in 10000 until 20000 -> getBadgeName(1)
+                in EVENT_BADGE_STAR until EVENT_BADGE_TREE -> getBadgeName(0)
+                in EVENT_BADGE_TREE until EVENT_BADGE_SANTA -> getBadgeName(1)
                 else -> getBadgeName(2)
             }
         }
@@ -78,5 +78,16 @@ class Event(private val validDate: Int, private val totalPrice: Int) {
             calDateEvent()
             isGiftEventApplicable()
         }
+    }
+
+    companion object {
+        private const val XMAS_DAY = 25
+        private const val EVENT_BASE_AMOUNT = 10000
+        private const val EVENT_BADGE_TREE = 10000
+        private const val FREE_GIFT_BASE_AMOUNT = 120000
+        private const val EVENT_BADGE_STAR = 5000
+        private const val EVENT_BADGE_SANTA = 20000
+        private const val D_DAY_SUBTRACTION_FACTOR = 1
+
     }
 }
