@@ -31,14 +31,14 @@ class EventPlannerController {
 
         outputView.printMenu(validOrder)
 
-        val itemPrices = menuBoard.getMenuItemPrice(orderManager.orderMenuNames)
+        val itemPrices = menuBoard.getMenuItemPrices(validOrder)
         orderManager.calculateTotalPrice(itemPrices)
         outputView.printTotalPrice(orderManager.totalPrice)
 
         val promotionManager = PromotionManager(validDate, orderManager.totalPrice)
         outputView.printFreeGift(promotionManager.applicableEvents)
 
-        orderManager.countMenuByCategory(menuBoard.getTypesOfMenuItems(orderManager.orderMenuNames))
+//        orderManager.countMenuByCategory(menuBoard.getTypesOfMenuItems(orderManager.orderMenuNames))
 
         val discountCalculator = DiscountCalculator(promotionManager.dDayEventDate, orderManager.categoryQuantities)
         discountCalculator.doDiscount(promotionManager.applicableEvents)
