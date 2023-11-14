@@ -23,34 +23,36 @@ class EventPlannerController {
     }
 
     fun run() {
+        //방문 일자 출력
         outputView.printEventMsg(validDate)
 
+        //주문 모델
         val order = Order()
-
-
         outputView.printMenu(validOrder)
 
         val itemPrices = menuBoard.getMenuItemPrices(validOrder)
+        order.calculateTotalPrice(validOrder, itemPrices)
+        outputView.printTotalPrice(order.totalPrice)
 
         order.writeOrderForm(menuBoard.getMenuItems(validOrder), validOrder)
-        order.calculateTotalPrice(validOrder, itemPrices)
-
-        outputView.printTotalPrice(order.totalPrice)
 
         val event = Event(validDate, order.totalPrice)
         outputView.printFreeGift(event.applicableEvents)
 
-//        orderManager.countMenuByCategory(menuBoard.getTypesOfMenuItems(orderManager.orderMenuNames))
-//        val discountCalculator = DiscountCalculator(event.dDayEventDate, order.categoryQuantities)
-//        discountCalculator.doDiscount(event.applicableEvents)
-//        outputView.printPromotionHistory(discountCalculator.discountDetails)
-//        outputView.printTotalDiscount(discountCalculator.totalDiscount)
-//
-//        discountCalculator.calFinalPayment(event.applicableEvents, order.totalPrice)
-//        outputView.printFinalPayment(discountCalculator.finalPayment)
-//
-//        event.getEventBadgeType(discountCalculator.totalDiscount)
-//        outputView.printEventBadge(event.eventBadge)
+
+        order.writeOrderForm(menuBoard.getMenuItems(validOrder), validOrder)
+        val discountCalculator = DiscountCalculator(event.dDayEventDate, order.orderForms)
+
+        discountCalculator.doDiscount(event.applicableEvents)
+
+        outputView.printPromotionHistory(discountCalculator.discountDetails)
+        outputView.printTotalDiscount(discountCalculator.totalDiscount)
+
+        discountCalculator.calFinalPayment(event.applicableEvents, order.totalPrice)
+        outputView.printFinalPayment(discountCalculator.finalPayment)
+
+        event.getEventBadgeType(discountCalculator.totalDiscount)
+        outputView.printEventBadge(event.eventBadge)
     }
 
     private fun getValidDate(): Int {
