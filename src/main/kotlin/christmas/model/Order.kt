@@ -15,18 +15,17 @@ class Order(private val menuItems: List<MenuItem>, private val validOrder: List<
 
     init {
         writeOrderForm()
-        _totalPrice = calculateTotalPrice()
+        calculateTotalPrice()
     }
 
     private fun writeOrderForm() {
         val quantities = validOrder.flatMap { it.values }
-        menuItems.forEachIndexed { index, menuItem -> _orderForms.add(OrderForm(menuItem, quantities[index])) }
+        menuItems.forEachIndexed { index, menuItem ->
+            _orderForms.add(OrderForm(menuItem, quantities[index]))
+        }
     }
 
-    private fun calculateTotalPrice(): Int {
-        var total = 0
-        orderForms.forEach { (menuItems, quantity) -> total += menuItems.price * quantity }
-        return total
-    }
+    private fun calculateTotalPrice() =
+        orderForms.forEach { (menuItems, quantity) -> _totalPrice += menuItems.price * quantity }
 
 }
