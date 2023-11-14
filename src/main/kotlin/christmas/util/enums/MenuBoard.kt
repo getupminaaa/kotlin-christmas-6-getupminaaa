@@ -2,7 +2,7 @@ package christmas.util.enums
 
 import christmas.model.data.MenuItem
 
-enum class MenuCategory(val menuItems: List<MenuItem>) {
+enum class MenuBoard(val menuItems: List<MenuItem>) {
     APPETIZER(
         listOf(
             MenuItem("APPETIZER", "양송이수프", 6000),

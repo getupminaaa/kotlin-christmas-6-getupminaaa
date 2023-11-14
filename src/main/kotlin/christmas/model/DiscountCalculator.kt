@@ -2,7 +2,7 @@ package christmas.model
 
 import christmas.model.data.OrderForm
 import christmas.util.enums.EventType
-import christmas.util.enums.MenuCategory
+import christmas.util.enums.MenuBoard
 
 class DiscountCalculator(
     private val dDayEventDate: Int,
@@ -24,10 +24,10 @@ class DiscountCalculator(
     private fun discountDDay() = D_DAY_START_DISCOUNT + dDayEventDate * D_DAY_DISCOUNT_INCREMENT
 
     private fun discountWeekDays() =
-        orderForms.find { it.menuItem.category == MenuCategory.DESSERT.name }?.quantity?.times(DATE_DISCOUNT) ?: 0
+        orderForms.find { it.menuItem.category == MenuBoard.DESSERT.name }?.quantity?.times(DATE_DISCOUNT) ?: 0
 
     private fun discountWeekend() =
-        orderForms.find { it.menuItem.category == MenuCategory.MAIN_DISH.name }?.quantity?.times(DATE_DISCOUNT) ?: 0
+        orderForms.find { it.menuItem.category == MenuBoard.MAIN_DISH.name }?.quantity?.times(DATE_DISCOUNT) ?: 0
 
     private fun getDiscountDetails(event: String) =
         when (event) {

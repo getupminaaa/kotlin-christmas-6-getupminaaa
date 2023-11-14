@@ -2,19 +2,19 @@ package christmas.model
 
 import christmas.model.data.MenuItem
 import christmas.model.data.OrderForm
-import christmas.util.enums.MenuCategory
+import christmas.util.enums.MenuBoard
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 
 class OrderTest {
     private val menuItems = listOf(
-        MenuItem(MenuCategory.APPETIZER.name, "타파스", 5500),
-        MenuItem(MenuCategory.DESSERT.name, "초코케이크", 15000),
-        MenuItem(MenuCategory.BEVERAGE.name, "레드와인", 60000),
-        MenuItem(MenuCategory.MAIN_DISH.name, "해산물파스타", 35000),
-        MenuItem(MenuCategory.MAIN_DISH.name, "바비큐립", 54000),
-        MenuItem(MenuCategory.APPETIZER.name, "시저샐러드", 8000)
+        MenuItem(MenuBoard.APPETIZER.name, "타파스", 5500),
+        MenuItem(MenuBoard.DESSERT.name, "초코케이크", 15000),
+        MenuItem(MenuBoard.BEVERAGE.name, "레드와인", 60000),
+        MenuItem(MenuBoard.MAIN_DISH.name, "해산물파스타", 35000),
+        MenuItem(MenuBoard.MAIN_DISH.name, "바비큐립", 54000),
+        MenuItem(MenuBoard.APPETIZER.name, "시저샐러드", 8000)
     )
     private val validOrder = listOf(
         mapOf("타파스" to 1),
@@ -37,12 +37,12 @@ class OrderTest {
     @DisplayName("orderForms와 비교를 통해 정상적으로 값이 들어가는지 확인 ")
     fun compareOrderForms() {
         val expected = listOf(
-            OrderForm(MenuItem(MenuCategory.APPETIZER.name, "타파스", 5500), 1),
-            OrderForm(MenuItem(MenuCategory.DESSERT.name, "초코케이크", 15000), 2),
-            OrderForm(MenuItem(MenuCategory.BEVERAGE.name, "레드와인", 60000), 1),
-            OrderForm(MenuItem(MenuCategory.MAIN_DISH.name, "해산물파스타", 35000), 1),
-            OrderForm(MenuItem(MenuCategory.MAIN_DISH.name, "바비큐립", 54000), 3),
-            OrderForm(MenuItem(MenuCategory.APPETIZER.name, "시저샐러드", 8000), 1)
+            OrderForm(MenuItem(MenuBoard.APPETIZER.name, "타파스", 5500), 1),
+            OrderForm(MenuItem(MenuBoard.DESSERT.name, "초코케이크", 15000), 2),
+            OrderForm(MenuItem(MenuBoard.BEVERAGE.name, "레드와인", 60000), 1),
+            OrderForm(MenuItem(MenuBoard.MAIN_DISH.name, "해산물파스타", 35000), 1),
+            OrderForm(MenuItem(MenuBoard.MAIN_DISH.name, "바비큐립", 54000), 3),
+            OrderForm(MenuItem(MenuBoard.APPETIZER.name, "시저샐러드", 8000), 1)
         )
         assertEquals(expected,order.orderForms)
     }

@@ -2,7 +2,7 @@ package christmas.controller
 
 import christmas.model.DiscountCalculator
 import christmas.model.Event
-import christmas.model.MenuBoard
+import christmas.model.Menu
 import christmas.model.Order
 import christmas.util.validator.Validator.isOrderContainsFood
 import christmas.util.validator.Validator.isOrderInMenu
@@ -12,7 +12,7 @@ import christmas.view.OutputView
 class EventPlannerController {
     private val outputView = OutputView()
     private val inputView = InputView()
-    private val menuBoard = MenuBoard()
+    private val menu = Menu()
 
     private var validDate = 0
     private var validOrder = listOf<Map<String, Int>>()
@@ -29,7 +29,7 @@ class EventPlannerController {
         //주문 모델
         outputView.printMenu(validOrder)
 
-        val order = Order(menuBoard.getMenuItems(validOrder), validOrder)
+        val order = Order(menu.getMenuItems(validOrder), validOrder)
         outputView.printTotalPrice(order.totalPrice)
 
         val event = Event(validDate, order.totalPrice)
@@ -72,11 +72,11 @@ class EventPlannerController {
     }
 
     private fun checkMenu(userInput: List<Map<String, Int>>) {
-        userInput.flatMap { it.keys }.forEach { isOrderInMenu(menuBoard.isItemInMenu(it)) }
+        userInput.flatMap { it.keys }.forEach { isOrderInMenu(menu.isItemInMenu(it)) }
     }
 
     private fun checkNotOnlyBeverage(userInput: List<Map<String, Int>>) {
         val temp = userInput.flatMap { it.keys }
-        isOrderContainsFood(menuBoard.areItemsNotOnlyBeverage(temp))
+        isOrderContainsFood(menu.areItemsNotOnlyBeverage(temp))
     }
 }

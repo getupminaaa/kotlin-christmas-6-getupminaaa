@@ -3,7 +3,7 @@ package christmas.model
 import christmas.model.data.MenuItem
 import christmas.model.data.OrderForm
 import christmas.util.enums.EventType
-import christmas.util.enums.MenuCategory
+import christmas.util.enums.MenuBoard
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
@@ -14,12 +14,12 @@ class DiscountCalculatorTest {
     private val applicableEvents = listOf("D_DAY", "STAR_DAY", "WEEKDAYS", "FREE_GIFT")
 
     private val orderForms = listOf(
-        OrderForm(MenuItem(MenuCategory.APPETIZER.name, "타파스", 5500), 1),
-        OrderForm(MenuItem(MenuCategory.DESSERT.name, "초코케이크", 15000), 2),
-        OrderForm(MenuItem(MenuCategory.BEVERAGE.name, "레드와인", 60000), 1),
-        OrderForm(MenuItem(MenuCategory.MAIN_DISH.name, "해산물파스타", 35000), 1),
-        OrderForm(MenuItem(MenuCategory.MAIN_DISH.name, "바비큐립", 54000), 3),
-        OrderForm(MenuItem(MenuCategory.APPETIZER.name, "시저샐러드", 8000), 1)
+        OrderForm(MenuItem(MenuBoard.APPETIZER.name, "타파스", 5500), 1),
+        OrderForm(MenuItem(MenuBoard.DESSERT.name, "초코케이크", 15000), 2),
+        OrderForm(MenuItem(MenuBoard.BEVERAGE.name, "레드와인", 60000), 1),
+        OrderForm(MenuItem(MenuBoard.MAIN_DISH.name, "해산물파스타", 35000), 1),
+        OrderForm(MenuItem(MenuBoard.MAIN_DISH.name, "바비큐립", 54000), 3),
+        OrderForm(MenuItem(MenuBoard.APPETIZER.name, "시저샐러드", 8000), 1)
     )
 
     @ParameterizedTest
