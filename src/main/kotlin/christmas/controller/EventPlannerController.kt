@@ -44,8 +44,10 @@ class EventPlannerController {
         discountCalculator.doDiscount(promotionManager.applicableEvents)
         outputView.printPromotionHistory(discountCalculator.discountDetails)
         outputView.printTotalDiscount(discountCalculator.totalDiscount)
+
         discountCalculator.calFinalPayment(promotionManager.applicableEvents, orderManager.totalPrice)
         outputView.printFinalPayment(discountCalculator.finalPayment)
+
         promotionManager.getEventBadgeType(discountCalculator.totalDiscount)
         outputView.printEventBadge(promotionManager.eventBadge)
     }
