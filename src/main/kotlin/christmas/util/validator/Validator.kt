@@ -32,5 +32,4 @@ object Validator {
     fun isOrderInMenu(isInMenu: Boolean) = require(isInMenu) { ErrorMessage.NOT_VALID_ORDER.msg }
 
     fun isOrderContainsFood(notOnlyBeverage: Boolean) = require(notOnlyBeverage) { ErrorMessage.NOT_VALID_ORDER.msg }
-
 }

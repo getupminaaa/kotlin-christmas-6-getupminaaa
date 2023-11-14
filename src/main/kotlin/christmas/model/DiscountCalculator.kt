@@ -20,7 +20,6 @@ class DiscountCalculator(
         get() = _finalPayment
     private var _finalPayment = 0
 
-    //크리스마스 디데이 할인 계산
     private fun discountDDay() = D_DAY_START_DISCOUNT + dDayEventDate * D_DAY_DISCOUNT_INCREMENT
 
     private fun discountWeekDays() =

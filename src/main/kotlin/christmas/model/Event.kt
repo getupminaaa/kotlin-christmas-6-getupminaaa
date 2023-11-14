@@ -86,6 +86,5 @@ class Event(private val validDate: Int, private val totalPrice: Int) {
         private const val EVENT_BADGE_STAR = 5000
         private const val EVENT_BADGE_SANTA = 20000
         private const val D_DAY_SUBTRACTION_FACTOR = 1
-
     }
 }

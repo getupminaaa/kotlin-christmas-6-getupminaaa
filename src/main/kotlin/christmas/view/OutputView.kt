@@ -13,7 +13,7 @@ class OutputView {
 
     private fun printStartMsg() = println(ProgramMessages.PROGRAM_START_MESSAGE.msg)
 
-    fun printEventMsg(date: Int) = println(ProgramMessages.EVENT_PREVIEW_MESSAGE.msg.format(date))
+    fun printEventPreviewMsg(date: Int) = println(ProgramMessages.EVENT_PREVIEW_MESSAGE.msg.format(date))
 
     fun printMenu(menuList: List<Map<String, Int>>) {
         println(ProgramMessages.ORDER_MENU_HEADER.msg)

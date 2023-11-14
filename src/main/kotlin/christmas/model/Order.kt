@@ -5,9 +5,9 @@ import christmas.model.data.OrderForm
 
 class Order(private val menuItems: List<MenuItem>, private val validOrder: List<Map<String, Int>>) {
 
+    private var _totalPrice = 0
     val totalPrice: Int
         get() = _totalPrice
-    private var _totalPrice = 0
 
     private var _orderForms = mutableListOf<OrderForm>()
     val orderForms: List<OrderForm>
@@ -27,5 +27,4 @@ class Order(private val menuItems: List<MenuItem>, private val validOrder: List<
 
     private fun calculateTotalPrice() =
         orderForms.forEach { (menuItems, quantity) -> _totalPrice += menuItems.price * quantity }
-
 }

@@ -4,12 +4,17 @@ import christmas.model.DiscountCalculator
 import christmas.model.Event
 import christmas.model.Menu
 import christmas.model.Order
+import christmas.model.data.OrderForm
 import christmas.util.validator.Validator.isOrderContainsFood
 import christmas.util.validator.Validator.isOrderInMenu
 import christmas.view.InputView
 import christmas.view.OutputView
 
 class EventPlannerController {
+    private lateinit var order: Order
+    private lateinit var event: Event
+    private lateinit var discountCalculator: DiscountCalculator
+
     private val outputView = OutputView()
     private val inputView = InputView()
     private val menu = Menu()
@@ -23,28 +28,42 @@ class EventPlannerController {
     }
 
     fun run() {
-        //방문 일자 출력
-        outputView.printEventMsg(validDate)
+        printEventPreviewAndMenu()
+        handleOrder()
+        handleEvent(order.totalPrice)
+        calculateDiscountAndPrintDetails(order.orderForms)
+        calculateFinalPaymentAndPrint()
+        calculateEventBadgeTypeAndPrint()
+    }
 
-        //주문 모델
+    private fun printEventPreviewAndMenu() {
+        outputView.printEventPreviewMsg(validDate)
         outputView.printMenu(validOrder)
+    }
 
-        val order = Order(menu.getMenuItems(validOrder), validOrder)
+    private fun handleOrder() {
+        order = Order(menu.getMenuItems(validOrder), validOrder)
         outputView.printTotalPrice(order.totalPrice)
+    }
 
-        val event = Event(validDate, order.totalPrice)
+    private fun handleEvent(totalPrice: Int) {
+        event = Event(validDate, totalPrice)
         outputView.printFreeGift(event.applicableEvents)
+    }
 
-        val discountCalculator = DiscountCalculator(event.dDayEventDate, order.orderForms)
-
+    private fun calculateDiscountAndPrintDetails(orderForms: List<OrderForm>) {
+        discountCalculator = DiscountCalculator(event.dDayEventDate, orderForms)
         discountCalculator.doDiscount(event.applicableEvents)
-
         outputView.printPromotionHistory(discountCalculator.discountDetails)
         outputView.printTotalDiscount(discountCalculator.totalDiscount)
+    }
 
+    private fun calculateFinalPaymentAndPrint() {
         discountCalculator.calFinalPayment(event.applicableEvents, order.totalPrice)
         outputView.printFinalPayment(discountCalculator.finalPayment)
+    }
 
+    private fun calculateEventBadgeTypeAndPrint() {
         event.getEventBadgeType(discountCalculator.totalDiscount)
         outputView.printEventBadge(event.eventBadge)
     }
@@ -62,8 +81,7 @@ class EventPlannerController {
     private fun getValidOrder(): List<Map<String, Int>> {
         return try {
             val userInput = inputView.getOrderMenu()
-            checkMenu(userInput)
-            checkNotOnlyBeverage(userInput)
+            checkOrderFromMenu(userInput)
             userInput
         } catch (e: IllegalArgumentException) {
             println(e.message)
@@ -71,9 +89,15 @@ class EventPlannerController {
         }
     }
 
-    private fun checkMenu(userInput: List<Map<String, Int>>) {
-        userInput.flatMap { it.keys }.forEach { isOrderInMenu(menu.isItemInMenu(it)) }
+    private fun checkOrderFromMenu(userInput: List<Map<String, Int>>) {
+        checkMenu(userInput)
+        checkNotOnlyBeverage(userInput)
     }
+
+    private fun checkMenu(userInput: List<Map<String, Int>>) =
+        userInput.flatMap { it.keys }.forEach {
+            isOrderInMenu(menu.isItemInMenu(it))
+        }
 
     private fun checkNotOnlyBeverage(userInput: List<Map<String, Int>>) {
         val temp = userInput.flatMap { it.keys }
