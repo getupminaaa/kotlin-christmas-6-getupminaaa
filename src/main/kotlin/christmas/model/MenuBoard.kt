@@ -34,4 +34,11 @@ class MenuBoard {
         }
         return prices
     }
+    fun getMenuItems(validOrder: List<Map<String, Int>>): List<MenuItem> {
+        val menuItem = mutableListOf<MenuItem>()
+        validOrder.flatMap { it.keys }.forEach { name ->
+            menuItem.add(menuBoard.first { it.name == name})
+        }
+        return menuItem
+    }
 }

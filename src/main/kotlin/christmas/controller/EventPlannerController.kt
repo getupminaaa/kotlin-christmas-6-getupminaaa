@@ -26,30 +26,31 @@ class EventPlannerController {
         outputView.printEventMsg(validDate)
 
         val order = Order()
-        order.setOrderMenuNames(validOrder)
-        order.setOrderMenuQuantities(validOrder)
+
 
         outputView.printMenu(validOrder)
 
         val itemPrices = menuBoard.getMenuItemPrices(validOrder)
-        order.calculateTotalPrice(itemPrices)
+
+        order.writeOrderForm(menuBoard.getMenuItems(validOrder), validOrder)
+        order.calculateTotalPrice(validOrder, itemPrices)
+
         outputView.printTotalPrice(order.totalPrice)
 
         val event = Event(validDate, order.totalPrice)
         outputView.printFreeGift(event.applicableEvents)
 
 //        orderManager.countMenuByCategory(menuBoard.getTypesOfMenuItems(orderManager.orderMenuNames))
-
-        val discountCalculator = DiscountCalculator(event.dDayEventDate, order.categoryQuantities)
-        discountCalculator.doDiscount(event.applicableEvents)
-        outputView.printPromotionHistory(discountCalculator.discountDetails)
-        outputView.printTotalDiscount(discountCalculator.totalDiscount)
-
-        discountCalculator.calFinalPayment(event.applicableEvents, order.totalPrice)
-        outputView.printFinalPayment(discountCalculator.finalPayment)
-
-        event.getEventBadgeType(discountCalculator.totalDiscount)
-        outputView.printEventBadge(event.eventBadge)
+//        val discountCalculator = DiscountCalculator(event.dDayEventDate, order.categoryQuantities)
+//        discountCalculator.doDiscount(event.applicableEvents)
+//        outputView.printPromotionHistory(discountCalculator.discountDetails)
+//        outputView.printTotalDiscount(discountCalculator.totalDiscount)
+//
+//        discountCalculator.calFinalPayment(event.applicableEvents, order.totalPrice)
+//        outputView.printFinalPayment(discountCalculator.finalPayment)
+//
+//        event.getEventBadgeType(discountCalculator.totalDiscount)
+//        outputView.printEventBadge(event.eventBadge)
     }
 
     private fun getValidDate(): Int {
