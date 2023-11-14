@@ -1,9 +1,9 @@
 package christmas.controller
 
 import christmas.model.DiscountCalculator
+import christmas.model.Event
 import christmas.model.MenuBoard
 import christmas.model.Order
-import christmas.model.Event
 import christmas.util.Validator.isOrderContainsFood
 import christmas.util.Validator.isOrderInMenu
 import christmas.view.InputView
