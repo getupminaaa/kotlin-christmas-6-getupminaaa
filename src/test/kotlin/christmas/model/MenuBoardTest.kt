@@ -33,7 +33,7 @@ class MenuBoardTest {
         assertTrue { menuBoard.areItemsNotOnlyBeverage(listOf("제로콜라", "타파스", "초코케이크")) }
         assertTrue { menuBoard.areItemsNotOnlyBeverage(listOf("티본스테이크", "타파스", "초코케이크")) }
     }
-    
+
     @Test
     @DisplayName("입력된 여러 메뉴들에 대해 메뉴아이템을 잘 반환하는지")
     fun getTypesOfMenuItemsTest() {
