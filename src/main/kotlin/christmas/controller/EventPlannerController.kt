@@ -68,8 +68,8 @@ class EventPlannerController {
     private fun getValidOrder(): List<Map<String, Int>> {
         return try {
             val userInput = inputView.getOrderMenu()
-            menuCheck(userInput)
-            onlyBeverage(userInput)
+            checkMenu(userInput)
+            checkNotOnlyBeverage(userInput)
             userInput
         } catch (e: IllegalArgumentException) {
             println(e.message)
@@ -77,14 +77,12 @@ class EventPlannerController {
         }
     }
 
-    private fun menuCheck(userInput: List<Map<String, Int>>) {
+    private fun checkMenu(userInput: List<Map<String, Int>>) {
         userInput.flatMap { it.keys }.forEach { isOrderInMenu(menuBoard.isItemInMenu(it)) }
     }
 
-    private fun onlyBeverage(userInput: List<Map<String, Int>>) {
+    private fun checkNotOnlyBeverage(userInput: List<Map<String, Int>>) {
         val temp = userInput.flatMap { it.keys }
         isOrderContainsFood(menuBoard.areItemsNotOnlyBeverage(temp))
     }
-
-
 }
