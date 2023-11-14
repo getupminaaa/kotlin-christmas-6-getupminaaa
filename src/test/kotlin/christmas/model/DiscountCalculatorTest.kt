@@ -2,9 +2,11 @@ package christmas.model
 
 import christmas.model.data.MenuItem
 import christmas.model.data.OrderForm
+import christmas.util.EventType
 import christmas.util.MenuCategory
-import org.assertj.core.api.Assertions.assertThat
+import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.DisplayName
+import org.junit.jupiter.api.Test
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.CsvSource
 
@@ -26,7 +28,7 @@ class DiscountCalculatorTest {
     fun doDiscountTest(dDayEventDate: Int, totalDiscount: Int) {
         val discountCalculator = DiscountCalculator(dDayEventDate, orderForms)
         discountCalculator.doDiscount(applicableEvents)
-        assertThat(discountCalculator.totalDiscount).isEqualTo(totalDiscount)
+        assertEquals(totalDiscount, discountCalculator.totalDiscount)
     }
 
     @ParameterizedTest
@@ -36,6 +38,20 @@ class DiscountCalculatorTest {
         val discountCalculator = DiscountCalculator(dDayEventDate, orderForms)
         discountCalculator.doDiscount(applicableEvents)
         discountCalculator.calFinalPayment(applicableEvents, totalDiscount)
-        assertThat(discountCalculator.finalPayment).isEqualTo(totalPrice)
+        assertEquals(totalPrice, discountCalculator.finalPayment)
+    }
+
+    @Test
+    @DisplayName("DiscountDetails 값이 정상적인지 확인")
+    fun compareDiscountDetails(){
+        val expected = listOf(
+            Pair(EventType.D_DAY.promotionName, 1200),
+            Pair(EventType.STAR_DAY.promotionName, 1000),
+            Pair(EventType.WEEKDAYS.promotionName, 4046),
+            Pair(EventType.FREE_GIFT.promotionName, 25000)
+        )
+        val discountCalculator = DiscountCalculator(2, orderForms)
+        discountCalculator.doDiscount(applicableEvents)
+        assertEquals(expected, discountCalculator.discountDetails)
     }
 }
