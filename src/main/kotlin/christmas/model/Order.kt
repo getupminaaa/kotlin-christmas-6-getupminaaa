@@ -3,7 +3,7 @@ package christmas.model
 import christmas.model.data.MenuItem
 import christmas.model.data.OrderForm
 
-class Order() {
+class Order(private val menuItems: List<MenuItem>, private val validOrder: List<Map<String, Int>>) {
 
     val totalPrice: Int
         get() = _totalPrice
@@ -13,18 +13,20 @@ class Order() {
     val orderForms: List<OrderForm>
         get() = _orderForms
 
-    fun writeOrderForm(menuItems: List<MenuItem>, validOrder: List<Map<String, Int>>) {
+    init {
+        writeOrderForm()
+        _totalPrice = calculateTotalPrice()
+    }
+
+    private fun writeOrderForm() {
         val quantities = validOrder.flatMap { it.values }
         menuItems.forEachIndexed { index, menuItem -> _orderForms.add(OrderForm(menuItem, quantities[index])) }
     }
 
-    fun calculateTotalPrice(validOrder: List<Map<String, Int>>, priceList: List<Int>) {
+    private fun calculateTotalPrice(): Int {
         var total = 0
-        validOrder.flatMap { it.values }.forEachIndexed { index, quantity ->
-            total += quantity * priceList[index]
-        }
-        _totalPrice = total
+        orderForms.forEach { (menuItems, quantity) -> total += menuItems.price * quantity }
+        return total
     }
-
 
 }

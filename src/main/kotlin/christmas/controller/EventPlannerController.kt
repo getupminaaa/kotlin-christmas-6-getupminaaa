@@ -27,20 +27,14 @@ class EventPlannerController {
         outputView.printEventMsg(validDate)
 
         //주문 모델
-        val order = Order()
         outputView.printMenu(validOrder)
 
-        val itemPrices = menuBoard.getMenuItemPrices(validOrder)
-        order.calculateTotalPrice(validOrder, itemPrices)
+        val order = Order(menuBoard.getMenuItems(validOrder), validOrder)
         outputView.printTotalPrice(order.totalPrice)
-
-        order.writeOrderForm(menuBoard.getMenuItems(validOrder), validOrder)
 
         val event = Event(validDate, order.totalPrice)
         outputView.printFreeGift(event.applicableEvents)
 
-
-        order.writeOrderForm(menuBoard.getMenuItems(validOrder), validOrder)
         val discountCalculator = DiscountCalculator(event.dDayEventDate, order.orderForms)
 
         discountCalculator.doDiscount(event.applicableEvents)
