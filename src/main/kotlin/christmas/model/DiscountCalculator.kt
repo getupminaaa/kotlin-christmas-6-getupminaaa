@@ -1,11 +1,12 @@
 package christmas.model
 
+import christmas.model.data.OrderForm
 import christmas.util.EventType
 import christmas.util.MenuCategory
 
 class DiscountCalculator(
     private val dDayEventDate: Int,
-    private val categoryQuantities: List<Map<String, Int>>
+    private val orderForms: List<OrderForm>
 ) {
     val totalDiscount: Int
         get() = _totalDiscount
@@ -19,23 +20,15 @@ class DiscountCalculator(
         get() = _finalPayment
     private var _finalPayment = 0
 
-    // -- 할인 --
     //크리스마스 디데이 할인 계산
     private fun discountDDay() = 1000 + dDayEventDate * 100
 
-    //  평일할인 계산 (디저트 메뉴를 메뉴 1개당 2,023원 할인)
-    private fun discountWeekDays(): Int {
-        var count = 0
-        categoryQuantities.forEach { count += it.getOrDefault(MenuCategory.DESSERT.name, 0) }
-        return count * 2023
-    }
+    private fun discountWeekDays() =
+        orderForms.find { it.menuItem.category == MenuCategory.DESSERT.name }?.quantity?.times(2023) ?: 0
 
-    //  주말할인 계산
-    private fun discountWeekend(): Int {
-        var count = 0
-        categoryQuantities.forEach { count += it.getOrDefault(MenuCategory.MAIN_DISH.name, 0) }
-        return count * 2023
-    }
+    private fun discountWeekend() =
+        orderForms.find { it.menuItem.category == MenuCategory.MAIN_DISH.name }?.quantity?.times(2023) ?: 0
+
 
     fun calFinalPayment(applicableEvents: List<String>, totalPrice: Int){
         _finalPayment = totalPrice - totalDiscount
