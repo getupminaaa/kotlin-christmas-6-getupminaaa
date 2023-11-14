@@ -24,7 +24,8 @@ class MenuBoard {
     }
 
     fun areItemsNotOnlyBeverage(itemNames: List<String>): Boolean {
-        val beverageMenu = menuBoard.map { it.category == MenuCategory.BEVERAGE.name }
+        val beverageMenu =
+            menuBoard.filter { it.category == MenuCategory.BEVERAGE.name }.map { menuItem -> menuItem.name }
         return itemNames.subtract(beverageMenu.toSet()).isNotEmpty()
     }
 
@@ -35,10 +36,11 @@ class MenuBoard {
         }
         return prices
     }
+
     fun getMenuItems(validOrder: List<Map<String, Int>>): List<MenuItem> {
         val menuItem = mutableListOf<MenuItem>()
         validOrder.flatMap { it.keys }.forEach { name ->
-            menuItem.add(menuBoard.first { it.name == name})
+            menuItem.add(menuBoard.first { it.name == name })
         }
         return menuItem
     }
