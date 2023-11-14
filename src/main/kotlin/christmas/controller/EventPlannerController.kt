@@ -2,8 +2,8 @@ package christmas.controller
 
 import christmas.model.DiscountCalculator
 import christmas.model.MenuBoard
-import christmas.model.OrderManager
-import christmas.model.PromotionManager
+import christmas.model.Order
+import christmas.model.Event
 import christmas.util.Validator.isOrderContainsFood
 import christmas.util.Validator.isOrderInMenu
 import christmas.view.InputView
@@ -25,31 +25,31 @@ class EventPlannerController {
     fun run() {
         outputView.printEventMsg(validDate)
 
-        val orderManager = OrderManager()
-        orderManager.setOrderMenuNames(validOrder)
-        orderManager.setOrderMenuQuantities(validOrder)
+        val order = Order()
+        order.setOrderMenuNames(validOrder)
+        order.setOrderMenuQuantities(validOrder)
 
         outputView.printMenu(validOrder)
 
         val itemPrices = menuBoard.getMenuItemPrices(validOrder)
-        orderManager.calculateTotalPrice(itemPrices)
-        outputView.printTotalPrice(orderManager.totalPrice)
+        order.calculateTotalPrice(itemPrices)
+        outputView.printTotalPrice(order.totalPrice)
 
-        val promotionManager = PromotionManager(validDate, orderManager.totalPrice)
-        outputView.printFreeGift(promotionManager.applicableEvents)
+        val event = Event(validDate, order.totalPrice)
+        outputView.printFreeGift(event.applicableEvents)
 
 //        orderManager.countMenuByCategory(menuBoard.getTypesOfMenuItems(orderManager.orderMenuNames))
 
-        val discountCalculator = DiscountCalculator(promotionManager.dDayEventDate, orderManager.categoryQuantities)
-        discountCalculator.doDiscount(promotionManager.applicableEvents)
+        val discountCalculator = DiscountCalculator(event.dDayEventDate, order.categoryQuantities)
+        discountCalculator.doDiscount(event.applicableEvents)
         outputView.printPromotionHistory(discountCalculator.discountDetails)
         outputView.printTotalDiscount(discountCalculator.totalDiscount)
 
-        discountCalculator.calFinalPayment(promotionManager.applicableEvents, orderManager.totalPrice)
+        discountCalculator.calFinalPayment(event.applicableEvents, order.totalPrice)
         outputView.printFinalPayment(discountCalculator.finalPayment)
 
-        promotionManager.getEventBadgeType(discountCalculator.totalDiscount)
-        outputView.printEventBadge(promotionManager.eventBadge)
+        event.getEventBadgeType(discountCalculator.totalDiscount)
+        outputView.printEventBadge(event.eventBadge)
     }
 
     private fun getValidDate(): Int {

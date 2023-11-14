@@ -2,7 +2,7 @@ package christmas.model
 
 import christmas.util.EventType
 
-class PromotionManager(private val validDate: Int, private val totalPrice: Int) {
+class Event(private val validDate: Int, private val totalPrice: Int) {
 
     private val weekends = listOf(1, 2, 8, 9, 15, 16, 22, 23, 29, 30)
     private val starDays = listOf(3, 10, 17, 24, 25, 31)

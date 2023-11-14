@@ -1,6 +1,6 @@
 package christmas.model
 
-class OrderManager() {
+class Order() {
 
     val totalPrice: Int
         get() = _totalPrice
